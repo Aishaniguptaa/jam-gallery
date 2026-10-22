@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anthropic Game Jam Gallery</title>
+  <style>
+    :root { --bg: #f6f4ef; --fg: #1d1c1a; --muted: #6b675f; --card: #fff; --line: #e2ded5; --accent: #c4552d; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #161513; --fg: #eeeae2; --muted: #a29d93; --card: #201f1c; --line: #34322e; --accent: #e98a5f; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, sans-serif; }
+    main { max-width: 1100px; margin: 0 auto; padding: 48px 16px; }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 0 0 4px; }
+    .sub { color: var(--muted); margin: 0 0 32px; }
+    ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+    li { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+    h2 { font-size: 1.15rem; margin: 0; }
+    .handle { color: var(--muted); font-size: 0.9rem; }
+    p { margin: 0; flex: 1; }
+    .links { display: flex; gap: 16px; }
+    a { color: var(--accent); font-weight: 600; }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Anthropic Game Jam</h1>
+    <p class="sub">Browser games made in 4 hours with three.js and Claude Code. November 6, 2026.</p>
+    <ul id="games" aria-live="polite"><li>Loading games…</li></ul>
+  </main>
+  <script>
+    const list = document.getElementById('games');
+    const el = (tag, props = {}, ...kids) => { const n = Object.assign(document.createElement(tag), props); n.append(...kids); return n; };
+    fetch('games.json')
+      .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then((games) => {
+        list.replaceChildren(...games.map((g) => el('li', {},
+          el('h2', { textContent: g.title }),
+          el('span', { className: 'handle', textContent: '@' + g.handle }),
+          el('p', { textContent: g.description }),
+          el('div', { className: 'links' },
+            el('a', { href: g.path, textContent: 'Play' }),
+            el('a', { href: g.path + 'DEVLOG.md', textContent: 'Devlog' })))));
+        if (!games.length) list.replaceChildren(el('li', { textContent: 'No games yet.' }));
+      })
+      .catch(() => list.replaceChildren(el('li', { textContent: 'Could not load the game list.' })));
+  </script>
+</body>
+</html>

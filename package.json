@@ -1,0 +1,9 @@
+{
+  "name": "jam-gallery",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-index.mjs",
+    "test": "node --test"
+  }
+}
