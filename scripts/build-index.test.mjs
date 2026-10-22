@@ -76,3 +76,21 @@ test('sorted by title', () => {
   }));
   assert.deepEqual(games.map((g) => g.title), ['Alpha', 'Beta']);
 });
+
+import { checkPrScope } from './build-index.mjs';
+
+test('pr adding one new game passes', () => {
+  assert.equal(checkPrScope(['games/new-kid/index.html', 'games/new-kid/meta.json'], ['example']), 'new-kid');
+});
+
+test('pr overwriting an existing game rejected', () => {
+  assert.throws(() => checkPrScope(['games/example/index.html'], ['example']), /example.*already/);
+});
+
+test('pr touching files outside games rejected', () => {
+  assert.throws(() => checkPrScope(['games/new-kid/index.html', 'scripts/build-index.mjs'], []), /scripts\/build-index\.mjs/);
+});
+
+test('pr touching two games rejected', () => {
+  assert.throws(() => checkPrScope(['games/aa/index.html', 'games/bb/index.html'], []), /one game/);
+});

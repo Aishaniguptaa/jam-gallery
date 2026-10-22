@@ -56,7 +56,31 @@ export function buildIndex(gamesDir) {
   return folders.map((f) => checkGame(gamesDir, f)).sort((a, b) => a.title.localeCompare(b.title));
 }
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+// A student PR may only add one new games/<handle>/ folder: no edits to other
+// games, the build script, or the workflow.
+export function checkPrScope(changedPaths, existingHandles) {
+  const outside = changedPaths.filter((p) => !/^games\/[^/]+\/./.test(p));
+  if (outside.length) throw new Error(`PR changes files outside games/: ${outside.join(', ')}`);
+  const handles = [...new Set(changedPaths.map((p) => p.split('/')[1]))];
+  if (handles.length !== 1) throw new Error(`PR must add exactly one game folder, found: ${handles.join(', ')}`);
+  if (existingHandles.includes(handles[0])) throw new Error(`games/${handles[0]} already exists on main; pick another handle`);
+  return handles[0];
+}
+
+if (process.argv[2] === '--pr-scope') {
+  // Usage: node scripts/build-index.mjs --pr-scope <base-ref>
+  const { execFileSync } = await import('node:child_process');
+  const git = (...a) => execFileSync('git', a, { encoding: 'utf8' }).split('\n').filter(Boolean);
+  const base = process.argv[3];
+  try {
+    const changed = git('diff', '--name-only', `${base}...HEAD`);
+    const existing = git('ls-tree', '--name-only', `${base}`, 'games/').map((p) => p.replace(/^games\//, ''));
+    console.log(`PR scope ok: games/${checkPrScope(changed, existing)}/`);
+  } catch (e) {
+    console.error(`PR scope check failed: ${e.message}`);
+    process.exit(1);
+  }
+} else if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const root = join(fileURLToPath(import.meta.url), '..', '..');
   try {
     const games = buildIndex(join(root, 'games'));
