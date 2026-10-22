@@ -1,2 +1,4 @@
 games.json
 .DS_Store
+.vercel
+.env*
