@@ -1,6 +1,6 @@
 // Validate every games/<handle>/ folder and write games.json for the gallery page.
 // Runs on Vercel deploy and on every PR; any invalid game fails the build.
-import { readdirSync, readFileSync, existsSync, statSync, writeFileSync } from 'node:fs';
+import { readdirSync, readFileSync, existsSync, lstatSync, writeFileSync } from 'node:fs';
 import { join, relative, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -12,7 +12,10 @@ const FREE_EXTS = new Set(['.js', '.mjs', '.css']);
 function walk(dir, root = dir) {
   return readdirSync(dir).flatMap((name) => {
     const p = join(dir, name);
-    return statSync(p).isDirectory() ? walk(p, root) : [relative(root, p).split('\\').join('/')];
+    const s = lstatSync(p);
+    // A link could loop forever or pull in files from outside the game folder.
+    if (s.isSymbolicLink()) throw new Error(`${relative(root, p)} is a symbolic link; copy the real file instead`);
+    return s.isDirectory() ? walk(p, root) : [relative(root, p).split('\\').join('/')];
   });
 }
 
@@ -52,7 +55,7 @@ function checkGame(gamesDir, folder) {
 }
 
 export function buildIndex(gamesDir) {
-  const folders = readdirSync(gamesDir).filter((n) => statSync(join(gamesDir, n)).isDirectory());
+  const folders = readdirSync(gamesDir).filter((n) => lstatSync(join(gamesDir, n)).isDirectory());
   return folders.map((f) => checkGame(gamesDir, f)).sort((a, b) => a.title.localeCompare(b.title));
 }
 
@@ -73,7 +76,7 @@ if (process.argv[2] === '--pr-scope') {
   const git = (...a) => execFileSync('git', a, { encoding: 'utf8' }).split('\n').filter(Boolean);
   const base = process.argv[3];
   try {
-    const changed = git('diff', '--name-only', `${base}...HEAD`);
+    const changed = git('diff', '--name-only', '--no-renames', `${base}...HEAD`);
     const existing = git('ls-tree', '--name-only', `${base}`, 'games/').map((p) => p.replace(/^games\//, ''));
     console.log(`PR scope ok: games/${checkPrScope(changed, existing)}/`);
   } catch (e) {

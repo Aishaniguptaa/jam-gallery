@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, symlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { buildIndex } from './build-index.mjs';
@@ -93,4 +93,10 @@ test('pr touching files outside games rejected', () => {
 
 test('pr touching two games rejected', () => {
   assert.throws(() => checkPrScope(['games/aa/index.html', 'games/bb/index.html'], []), /one game/);
+});
+
+test('symbolic link in a game rejected', () => {
+  const dir = gamesDir({ 'linky': { meta: meta('linky') } });
+  symlinkSync('..', join(dir, 'linky', 'up'));
+  assert.throws(() => buildIndex(dir), /symbolic link/);
 });
