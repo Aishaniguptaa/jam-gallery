@@ -1,6 +1,6 @@
 # Anthropic Game Jam Gallery
 
-Games made in 4 hours with three.js and Claude Code, November 6, 2026.
+Games made in 5 hours with three.js and Claude Code, November 6, 2026.
 
 ## Submitting a game (students)
 
@@ -15,9 +15,9 @@ Each game folder holds `index.html`, `meta.json`, its `.js`/`.css`, credited ass
 ## Merging (facilitator)
 
 ```bash
-gh pr list -R nmadrid27/jam-gallery
-gh pr checks <n> -R nmadrid27/jam-gallery
-gh pr merge <n> -R nmadrid27/jam-gallery --squash
+gh pr list -R SchoolofCreativeTechnology/jam-gallery
+gh pr checks <n> -R SchoolofCreativeTechnology/jam-gallery
+gh pr merge <n> -R SchoolofCreativeTechnology/jam-gallery --squash
 ```
 
 Vercel rebuilds on merge: `node scripts/build-index.mjs` validates every game and writes `games.json`, which the gallery page reads.
