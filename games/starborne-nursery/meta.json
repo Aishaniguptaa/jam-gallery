@@ -1,0 +1,18 @@
+{
+  "title": "Starborne Nursery",
+  "handle": "starborne-nursery",
+  "description": "A cozy caretaking game. You are the Caretaker on a small island floating in a sky-ocean: turn the island to line the Sky Train's tracks up with your Grand Dock, trade with it for feed, seeds and eggs, raise what hatches in your pool, and send grown creatures off into the sky.",
+  "assets": [
+    {
+      "file": "fonts/Silkscreen-Regular.ttf",
+      "source": "https://github.com/google/fonts/tree/main/ofl/silkscreen",
+      "license": "SIL Open Font License 1.1"
+    },
+    {
+      "file": "fonts/Silkscreen-OFL.txt",
+      "source": "https://github.com/google/fonts/tree/main/ofl/silkscreen",
+      "license": "SIL Open Font License 1.1"
+    }
+  ],
+  "ai_assets": []
+}
