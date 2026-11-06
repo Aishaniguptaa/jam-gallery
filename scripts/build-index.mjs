@@ -8,6 +8,8 @@ const HANDLE = /^[a-z0-9-]{2,30}$/;
 // Files a game may contain without crediting them in meta.json.
 const FREE_NAMES = new Set(['index.html', 'meta.json', 'DEVLOG.md']);
 const FREE_EXTS = new Set(['.js', '.mjs', '.css']);
+// Gateway and Anthropic keys must never ship. Checked in every file, with a clear message.
+const KEY = /vck_[A-Za-z0-9_-]{20,}|sk-ant-[A-Za-z0-9_-]{20,}/;
 
 function walk(dir, root = dir) {
   return readdirSync(dir).flatMap((name) => {
@@ -42,6 +44,10 @@ function checkGame(gamesDir, folder) {
   }
 
   const credited = new Set([...assets.map((a) => a.file), ...aiAssets]);
+  for (const f of walk(dir)) {
+    if (f.split('/').some((part) => part.startsWith('.'))) fail(`${f} is a hidden file or folder; remove it (never ship .claude/)`);
+    if (KEY.test(readFileSync(join(dir, f), 'latin1'))) fail(`${f} contains an API key; remove the file and tell Nathan so the key can be revoked`);
+  }
   for (const f of walk(dir)) {
     const name = f.split('/').pop();
     if (FREE_NAMES.has(name) || FREE_EXTS.has(extname(f)) || credited.has(f)) continue;

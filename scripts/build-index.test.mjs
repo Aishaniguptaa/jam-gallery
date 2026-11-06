@@ -94,3 +94,12 @@ test('pr touching files outside games rejected', () => {
 test('pr touching two games rejected', () => {
   assert.throws(() => checkPrScope(['games/aa/index.html', 'games/bb/index.html'], []), /one game/);
 });
+
+test('hidden files and folders rejected', () => {
+  assert.throws(() => buildIndex(gamesDir({ hh: { meta: meta('hh'), files: { '.claude/settings.local.json': '{}' } } })), /hidden/);
+});
+
+test('API key in any file rejected', () => {
+  const key = 'vck_' + 'a'.repeat(40);
+  assert.throws(() => buildIndex(gamesDir({ kk: { meta: meta('kk'), files: { 'main.js': `const k = "${key}";` } } })), /API key/);
+});
