@@ -1,0 +1,703 @@
+/* style.css — retro mission-control telemetry: black terminal, teal readouts, red reserved for danger. */
+
+:root {
+  color-scheme: dark;
+
+  --bg: #000000;
+  --bg-panel: #04100e;
+
+  --teal: #3ff0d0;
+  --teal-bright: #c6fff3;
+  --teal-mid: #29b8a0;
+  --teal-dim: #1f9c85;
+
+  --red: #ff5b5b;
+  --red-dim: #d0605a;
+  --red-line: rgba(255, 91, 91, 0.42);
+  --red-hatch: rgba(255, 91, 91, 0.055);
+
+  --line: rgba(63, 240, 208, 0.26);
+  --line-soft: rgba(63, 240, 208, 0.14);
+  --line-strong: rgba(63, 240, 208, 0.55);
+
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Courier New", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { height: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100%;
+  background-color: var(--bg);
+  /* A cold, faint teal bloom from the top: a lit console, not a warm trail. */
+  background-image: radial-gradient(140% 90% at 50% -10%, #071f1c 0%, #000 58%);
+  background-attachment: fixed;
+  color: var(--teal);
+  font-family: var(--mono);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+p { margin: 0; }
+
+::selection { background: var(--teal); color: #00110d; }
+
+/* The console column: one fixed-width channel down the middle of the screen. */
+#screen {
+  width: min(100% - 2.5rem, 72rem);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 1.4rem 1.1rem 3rem;
+  border-inline: 1px solid var(--line-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* Header — the station nameplate. */
+.screen-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(63, 240, 208, 0.1), rgba(63, 240, 208, 0.015));
+  color: var(--teal);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  text-shadow: 0 0 9px rgba(63, 240, 208, 0.35);
+}
+
+.screen-header::before {
+  content: '\25CF'; /* a lit status lamp */
+  font-size: 0.6rem;
+  animation: tui-blink 2.6s linear infinite;
+}
+
+@keyframes tui-blink {
+  0%, 62% { opacity: 1; }
+  63%, 100% { opacity: 0.25; }
+}
+
+/* Instrument panel: four readouts, hairline-separated, label over value. */
+.resources {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 1px;
+  padding: 1px;
+  border: 1px solid var(--line);
+  background: var(--line-soft); /* shows through the 1px grid gaps as dividers */
+}
+
+.resource {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.5rem 0.8rem 0.55rem;
+  background: var(--bg-panel);
+}
+
+.resource-label {
+  color: var(--teal-mid);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  line-height: 1.2;
+}
+
+.resource-value {
+  color: var(--teal-bright);
+  font-size: 1.45rem;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 10px rgba(63, 240, 208, 0.35);
+}
+
+/* Clock strip: stardate, the Earth deadline, the arrival countdown. */
+.dates {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.3rem 1.2rem;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--line);
+  background: rgba(63, 240, 208, 0.03);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal-mid);
+}
+
+.stamp,
+.dates > span {
+  white-space: nowrap;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal-mid);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The second stamp is the EARTH DEADLINE in all three screens, so it is the one red readout. */
+.dates > span:nth-child(2) {
+  color: #ff8080;
+  text-shadow: 0 0 8px rgba(255, 91, 91, 0.25);
+}
+
+p.stamp {
+  display: block;
+  margin: 0 0 0.2rem;
+  font-size: 0.8rem;
+  color: var(--teal-dim);
+}
+
+/* A panel: corner ticks, hairline frame, faint teal wash. */
+.event {
+  position: relative;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(63, 240, 208, 0.045), rgba(63, 240, 208, 0.012));
+}
+
+.event::before,
+.event::after {
+  content: '';
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  pointer-events: none;
+}
+
+.event::before {
+  top: -1px;
+  left: -1px;
+  border-top: 1px solid var(--line-strong);
+  border-left: 1px solid var(--line-strong);
+}
+
+.event::after {
+  right: -1px;
+  bottom: -1px;
+  border-right: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.event > :last-child { margin-bottom: 0; }
+
+.event-text {
+  margin: 0 0 0.65rem;
+  color: var(--teal);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.status + .options { margin-top: 0.75rem; }
+
+/* The core interactive element: number key in its own column, label over price beside it. */
+button.option {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 3.25rem 1fr;
+  align-items: baseline;
+  column-gap: 0.9rem;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--teal-dim);
+  border-radius: 0;
+  background: rgba(63, 240, 208, 0.02);
+  color: var(--teal);
+  font-family: inherit;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 90ms linear, border-color 90ms linear, box-shadow 90ms linear;
+}
+
+button.option:hover:not(:disabled),
+button.option:focus-visible {
+  border-color: var(--teal);
+  border-left-color: var(--teal);
+  background: rgba(63, 240, 208, 0.1);
+  color: var(--teal-bright);
+  box-shadow: inset 0 0 0 1px rgba(63, 240, 208, 0.35), 0 0 16px rgba(63, 240, 208, 0.16);
+  text-shadow: 0 0 9px rgba(63, 240, 208, 0.4);
+}
+
+button.option:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+button.option:active:not(:disabled) {
+  background: rgba(63, 240, 208, 0.2);
+}
+
+.option-key {
+  color: var(--teal-dim);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+}
+
+button.option:hover:not(:disabled) .option-key,
+button.option:focus-visible .option-key {
+  color: var(--teal);
+}
+
+.option-body,
+button.option > span:not(.option-key) {
+  min-width: 0;
+  line-height: 1.35;
+}
+
+/* The label and the price it charges. colony.js builds its option body without class names, so the
+   structural selectors below carry the same look there as `option-label` / `option-cost` do in ui.js.
+   They skip locked rows on purpose, so the red disabled colours further down are never outranked. */
+.option-label,
+button.option:not(:disabled) > span:not(.option-key) > span:first-child {
+  display: inline;
+  color: var(--teal);
+  letter-spacing: 0.03em;
+}
+
+.option-cost,
+button.option:not(:disabled) > span:not(.option-key) > span:not(:first-child) {
+  display: inline;
+  color: var(--teal-dim);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Rows you cannot press, in two kinds — the class the JS puts on them tells them apart:
+   1. option-locked — the mission cannot pay for it. Red, dashed red frame, faint hatch: red is the
+      danger colour and here it says "you are short".
+   2. disabled without option-locked — a step that is not reachable yet (a colony build out of order, a
+      launch with no planet or size chosen). Dim teal and dashed: plainly unavailable, but no alarm.
+   Every one of them also carries an inline opacity: 0.4 from the JS; the !important below overrides that
+   so the row stays legible and the frame, not the fade, carries the meaning. No behaviour changes. */
+button.option:disabled,
+button.option.option-locked {
+  opacity: 1 !important;
+  border-style: dashed;
+  border-left-width: 2px;
+  background-color: transparent;
+  box-shadow: none;
+  text-shadow: none;
+  cursor: not-allowed;
+}
+
+button.option:disabled {
+  border-color: var(--line);
+  background-image: none;
+}
+
+button.option.option-locked {
+  border-color: var(--red-line);
+  background-image: repeating-linear-gradient(45deg, var(--red-hatch) 0 5px, transparent 5px 11px);
+}
+
+button.option.option-locked,
+button.option.option-locked span { color: var(--red-dim); }
+
+button.option:disabled:not(.option-locked),
+button.option:disabled:not(.option-locked) span { color: var(--teal-dim); }
+
+/* The price line stays a step dimmer than the label, exactly as it is on a live row. */
+button.option.option-locked .option-cost,
+button.option.option-locked > span:not(.option-key) > span:not(:first-child) { color: #b8605a; }
+
+button.option:disabled:not(.option-locked) .option-cost,
+button.option:disabled:not(.option-locked) > span:not(.option-key) > span:not(:first-child) { color: #1c8a75; }
+
+/* Alarm lines: a locked launch, a locked build step, a lost signal. */
+.status {
+  margin: 0.75rem 0 0;
+  color: var(--red);
+  font-size: 0.85rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-shadow: 0 0 9px rgba(255, 91, 91, 0.3);
+}
+
+.event > .status:first-child { margin-top: 0; }
+
+.status-win {
+  color: var(--teal);
+  text-shadow: 0 0 12px rgba(63, 240, 208, 0.45);
+}
+
+/* End-of-run panel: the only panel holding a resource bar. Its first line is the verdict, its last
+   is the restart prompt, which is an instruction rather than an alarm. */
+.event:has(> .resources) { padding: 1rem 1.1rem; }
+
+.event:has(> .resources) > .status:first-child {
+  font-size: 1.05rem;
+  letter-spacing: 0.22em;
+}
+
+.event:has(> .resources) > .status:last-child {
+  color: var(--teal-mid);
+  font-size: 0.78rem;
+  text-shadow: none;
+}
+
+.event > .resources { margin: 0.6rem 0 0.25rem; }
+
+/* CRT: a faint scanline overlay over the whole page. Never over the clicks — pointer-events stay off. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0 2px,
+    rgba(0, 0, 0, 0.2) 2px 3px
+  );
+}
+
+/* The kit's starter hint, shown on localhost only. index.html sets its colour, font and bottom offset
+   inline, so those need !important here: without them it reads as a grey system-font strip lying across
+   the console. Reworded nowhere and still pointer-events:none, so it stays a hint and not an obstacle. */
+#start-hint {
+  position: fixed !important;
+  left: 0;
+  right: 0;
+  bottom: 0 !important;
+  padding: 0.4rem 0 0.45rem;
+  border-top: 1px solid var(--line-soft);
+  background: rgba(0, 6, 5, 0.92);
+  color: var(--teal-dim) !important;
+  font: 12px/1.4 var(--mono) !important;
+  letter-spacing: 0.1em;
+}
+
+#start-hint code {
+  padding: 0.05em 0.4em;
+  border-radius: 0;
+  background: rgba(63, 240, 208, 0.1);
+  color: var(--teal-mid);
+}
+
+/* Keep the last row of the console clear of that bar while it is on screen. */
+body:has(#start-hint:not([hidden])) #screen { padding-bottom: 4.5rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .screen-header::before { animation: none; }
+  button.option { transition: none; }
+}
+
+/* --- Flight path strip (flightpath.js): the voyage instrument between the date bar and the event. --- */
+
+/* The whole strip: an inline SVG that scales to the console column's width. */
+.flightpath {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: linear-gradient(180deg, rgba(63, 240, 208, 0.045), rgba(63, 240, 208, 0.012));
+}
+
+/* Hairline frame drawn inside the SVG, so it scales with the strip. */
+.fp-frame { fill: none; stroke: var(--line); stroke-width: 1; }
+
+/* The voyage line from EARTH to the destination. */
+.fp-track { stroke: var(--line-strong); stroke-width: 1; }
+
+/* The part of the voyage already flown: brighter, so progress reads without a number. */
+.fp-flown { stroke: var(--teal-mid); stroke-width: 2; }
+
+/* One tick per year of the voyage. */
+.fp-tick { stroke: var(--line); stroke-width: 1; }
+
+/* The year numbers under the ticks and the readout row under the path. */
+.fp-tick-label,
+.fp-readout {
+  fill: var(--teal-dim);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The hairline between the path and its readout row. */
+.fp-sep { stroke: var(--line-soft); stroke-width: 1; }
+
+/* The two end names: EARTH and the destination planet. */
+.fp-origin,
+.fp-dest {
+  fill: var(--teal-mid);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* The end marker bars: the launch point and the destination diamond. */
+.fp-marker,
+.fp-dest-glyph { stroke: var(--teal-mid); stroke-width: 1; }
+
+/* The ship on the path: the one blinking element, so the strip reads as a live feed. */
+.fp-ship {
+  fill: var(--teal-bright);
+  font-family: var(--mono);
+  font-size: 13px;
+  filter: drop-shadow(0 0 4px rgba(63, 240, 208, 0.8));
+  animation: fp-pulse 1.1s steps(2, end) infinite;
+}
+
+/* The blink: mostly lit, briefly dark, like a transponder. */
+@keyframes fp-pulse {
+  0%, 55% { opacity: 1; }
+  56%, 100% { opacity: 0.22; }
+}
+
+/* The quiet line a flight screen shows when no destination is set yet. */
+.fp-empty { margin: 0; }
+
+/* No blinking for players who ask for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  .fp-ship { animation: none; }
+}
+
+/* --- Side instrument panels (gauges.js): fixed ASCII gauges down both edges of the console. --- */
+
+/* The fixed strip: full height, 200px wide, pinned to one edge, and never clickable. */
+.gauge-panel {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 200px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.85rem 0.6rem;
+  overflow: hidden;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(4, 16, 14, 0.88), rgba(0, 0, 0, 0.94));
+  border-inline: 1px solid var(--line-soft);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  line-height: 1.45;
+  color: var(--teal);
+}
+
+/* The left strip hugs the left edge. */
+.gauge-panel-left { left: 0; }
+
+/* The right strip hugs the right edge; its windows grow to the same width. */
+.gauge-panel-right { right: 0; }
+
+/* One instrument window: the ASCII frame itself is text, this box spaces and tints it. */
+.gauge-win {
+  border: 1px solid var(--line-soft);
+  background: rgba(63, 240, 208, 0.02);
+}
+
+/* The `┌─ TITLE ────┐` line, kept on one line so its dashes stay aligned. */
+.gauge-win-title {
+  padding: 0.18rem 0.15rem 0;
+  color: var(--teal-dim);
+  font-size: 0.62rem;
+  white-space: pre;
+}
+
+/* The closing `└──────┘` line under the window's contents. */
+.gauge-win-foot {
+  padding: 0 0.15rem 0.22rem;
+  color: var(--teal-dim);
+  font-size: 0.62rem;
+  white-space: pre;
+}
+
+/* A window's contents, stacked with a hairline gap. */
+.gauge-win-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+  padding: 0.12rem 0.4rem 0.3rem;
+}
+
+/* A character meter row: label, 14-cell bar, percent, all on one line. */
+.gauge-meter {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  white-space: pre;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The meter's resource name, a fixed 6 characters so every bar starts in the same column. */
+.gauge-meter-label {
+  width: 6ch;
+  color: var(--teal-mid);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+}
+
+/* The ████░░░░ cells, the brightest readout in the panel. */
+.gauge-meter-bar {
+  color: var(--teal);
+  text-shadow: 0 0 6px rgba(63, 240, 208, 0.3);
+}
+
+/* The percent figure beside the bar. */
+.gauge-meter-pct {
+  color: var(--teal-dim);
+  font-size: 0.6rem;
+}
+
+/* Danger: under 25% of the starting load the whole meter goes red — red means danger only. */
+.gauge-meter.is-danger .gauge-meter-label,
+.gauge-meter.is-danger .gauge-meter-bar,
+.gauge-meter.is-danger .gauge-meter-pct {
+  color: var(--red);
+  text-shadow: 0 0 8px rgba(255, 91, 91, 0.25);
+}
+
+/* A telemetry row: dim label on the left, bright value on the right. */
+.gauge-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+/* The row's label, small and dim so the value wins. */
+.gauge-row-label {
+  color: var(--teal-dim);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+}
+
+/* The row's value, tabular so the numbers do not jitter as they change. */
+.gauge-row-value {
+  color: var(--teal-bright);
+  font-variant-numeric: tabular-nums;
+}
+
+/* CRITICAL status: red, because the run or a resource is in danger. */
+.gauge-status.is-danger {
+  color: var(--red);
+  text-shadow: 0 0 8px rgba(255, 91, 91, 0.3);
+}
+
+/* COMPLETE status: mission won, so it stays teal rather than alarming red. */
+.gauge-status.is-complete {
+  color: var(--teal-bright);
+}
+
+/* Decorative status lamp: a lit dot that pulses, CSS only. */
+.gauge-lamp {
+  color: var(--teal-bright);
+  animation: gauge-lamp 2.4s ease-in-out infinite;
+}
+
+/* The lamp's pulse from full to dim and back. */
+@keyframes gauge-lamp {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+/* The lamp's small "ONLINE"/"LIVE" word beside it. */
+.gauge-lamp-text {
+  color: var(--teal-dim);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+}
+
+/* Decorative waveform window: an overflow strip for the sliding characters. */
+.gauge-wave {
+  overflow: hidden;
+  height: 1.15rem;
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--teal-mid);
+  white-space: nowrap;
+}
+
+/* The scrolling character strip, twice repeated so the -50% slide loops with no visible seam. */
+.gauge-wave-track {
+  display: inline-block;
+  white-space: pre;
+  animation: gauge-wave 12s linear infinite;
+}
+
+/* The waveform slide itself, pure CSS. */
+@keyframes gauge-wave {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Decorative rotating sweep cursor: a plus that spins like a radar sweep, CSS only. */
+.gauge-cursor {
+  display: inline-block;
+  color: var(--teal-bright);
+  animation: gauge-cursor 3.2s linear infinite;
+}
+
+/* One full turn for the sweep cursor. */
+@keyframes gauge-cursor {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Decorative scan bar: the bordered track. */
+.gauge-scan {
+  display: block;
+  height: 0.42rem;
+  margin-top: 0.15rem;
+  border: 1px solid var(--line);
+  background: rgba(63, 240, 208, 0.05);
+}
+
+/* The fill that sweeps across the track, CSS only. */
+.gauge-scan-fill {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--teal-mid);
+  animation: gauge-scan 5.5s ease-in-out infinite;
+}
+
+/* One scan pass: fill, hold, then start again from empty. */
+@keyframes gauge-scan {
+  0% { width: 0; }
+  60% { width: 100%; }
+  100% { width: 100%; }
+}
+
+/* Desktop layout: reserve 216px per side (200px panel + 16px gap) so the centre column stays clear. */
+@media (min-width: 1100px) {
+  body { padding-inline: 216px; }
+}
+
+/* Below 1100px the panels would squeeze the game, so hide them and hand the body its width back. */
+@media (max-width: 1099px) {
+  .gauge-panel { display: none; }
+}
+
+/* No pulsing, sweeping or sliding for players who ask for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  .gauge-lamp,
+  .gauge-wave-track,
+  .gauge-cursor,
+  .gauge-scan-fill { animation: none; }
+}
