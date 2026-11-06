@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- temple-wall.svg — one bay of a carved South Indian temple wall, drawn as text and loaded as the wall
+     texture in pillars.js. The tile is exactly one bay: 2.25 world units of wall along the run across the
+     full 4.1-unit height of the carved face, so the square canvas is 227.6 px per world unit across and
+     124.9 px up; every measure below comes from that grid.
+     Layout of the bay, left to right: half a pilaster (the other half is the far edge of the tile, and the
+     two meet to make one whole pilaster where two bays join), a recessed panel carrying an inset frame
+     round a carved diamond and a seated guardian in relief, and half a pilaster again on the right.
+     Across the top runs the frieze: a scroll creeper with four lotus medallions, a lit order above it and
+     a beaded moulding and a shadow line at its foot so the band reads as raised.
+     The carving is deliberately bold: at the angle the corridor puts on this wall the relief is seen
+     almost edge on, so what reads at a distance is a light face against a deep recess and the dark line
+     cut between them, not fine detail.
+     Everything is drawn in the makers' sandstone: wall face #b08d63, raised pilaster #c2a077, frieze
+     ground #9a7850, recessed panel #6a4d2f, plinth #8a6a45, moulding #a5825a, cornice #c9a273, capstone
+     #d8b489, deepest shadow #3a2a1a, and lit edges and highlights in warm cream #ffecdc at low opacity.
+     No gold anywhere: the gold in the corridor belongs to the pillars' glow, never to the stone.
+     The drawing is original and traces nothing; the makers' photograph was used for mood and colour only.
+     The background is opaque: this is a solid wall, not a cutout. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <title>One bay of carved temple wall: pilasters, a recessed panel and a frieze</title>
+  <desc>Warm sandstone wall of one bay: half a carved pilaster down each edge, a deep recessed panel with a
+    moulded inset frame round a carved diamond and a seated guardian in relief, a footing course along the
+    foot, and a frieze of scroll and lotus medallions with a lit moulding above and a shadow at its foot.
+    The left and right edges join without a seam, so the bay repeats along the corridor unbroken.</desc>
+
+  <defs>
+    <!-- LIGHT AND SHADE: depth comes from layered value, never from an outline. Every shadow is the one
+         deep shadow tone and every lit edge the one warm cream, only their opacity changes. -->
+    <linearGradient id="recessTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2a1a" stop-opacity="0.62"/>
+      <stop offset="1" stop-color="#3a2a1a" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="recessFoot" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffecdc" stop-opacity="0"/>
+      <stop offset="1" stop-color="#ffecdc" stop-opacity="0.24"/>
+    </linearGradient>
+    <linearGradient id="recessFromLeft" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3a2a1a" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#3a2a1a" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="recessFromRight" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0" stop-color="#3a2a1a" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#3a2a1a" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="fieldDepth" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2a1a" stop-opacity="0.4"/>
+      <stop offset="0.55" stop-color="#3a2a1a" stop-opacity="0.05"/>
+      <stop offset="1" stop-color="#3a2a1a" stop-opacity="0.16"/>
+    </linearGradient>
+
+    <!-- ONE BEAD of the beaded mouldings that run along the pilaster capitals, the frieze foot and the
+         footing course. The row is a group rather than a pattern so that it can be laid at any height, and
+         its beads never fall near a bay edge, so the moulding joins its neighbour without a join line. -->
+    <g id="bead">
+      <circle cx="16" cy="0" r="7" fill="#3a2a1a" opacity="0.4"/>
+      <circle cx="16" cy="-1.5" r="6.4" fill="#c2a077"/>
+      <path d="M 11.5 -4 A 6.4 6.4 0 0 1 20.5 -4.5" fill="none" stroke="#ffecdc" stroke-opacity="0.32" stroke-width="2.2"/>
+    </g>
+    <g id="beadRow">
+      <use href="#bead" x="0"/><use href="#bead" x="32"/><use href="#bead" x="64"/><use href="#bead" x="96"/>
+      <use href="#bead" x="128"/><use href="#bead" x="160"/><use href="#bead" x="192"/><use href="#bead" x="224"/>
+      <use href="#bead" x="256"/><use href="#bead" x="288"/><use href="#bead" x="320"/><use href="#bead" x="352"/>
+      <use href="#bead" x="384"/><use href="#bead" x="416"/><use href="#bead" x="448"/><use href="#bead" x="480"/>
+    </g>
+
+    <!-- ONE LOTUS MEDALLION, carved on the frieze. The petals are drawn as one group of three ellipses and
+         then that group is placed twice, rotated thirty degrees, which makes six petals in one gesture. -->
+    <g id="petal">
+      <ellipse cx="0" cy="0" rx="9.5" ry="20" fill="#c2a077" stroke="#3a2a1a" stroke-opacity="0.45" stroke-width="3"/>
+      <ellipse cx="0" cy="0" rx="9.5" ry="20" transform="rotate(60)" fill="#c2a077" stroke="#3a2a1a" stroke-opacity="0.45" stroke-width="3"/>
+      <ellipse cx="0" cy="0" rx="9.5" ry="20" transform="rotate(120)" fill="#c2a077" stroke="#3a2a1a" stroke-opacity="0.45" stroke-width="3"/>
+    </g>
+    <g id="lotusMedallion">
+      <ellipse cx="0" cy="0" rx="31" ry="20" fill="#8a6a45"/>
+      <use href="#petal"/>
+      <use href="#petal" transform="rotate(30)"/>
+      <circle cx="0" cy="0" r="9" fill="#8a6a45" stroke="#3a2a1a" stroke-opacity="0.5" stroke-width="3"/>
+      <ellipse cx="-3" cy="-4" rx="4" ry="3" fill="#ffecdc" opacity="0.4"/>
+    </g>
+
+    <!-- HALF A PILASTER is placed twice, once at each edge of the tile, so its halves meet across the join
+         of two bays as one whole carved pilaster - and because both halves are the same drawing in the same
+         local coordinates, nothing can step at the join. It runs from the frieze foot to the bottom of the
+         face: a moulding and a beaded row at the capital, the carved shaft, a beaded row and a moulding at
+         the foot. The relief faces the same way on both outer corners: lit on the left, shadowed right. -->
+    <g id="pilaster">
+      <rect x="-56.9" y="75" width="113.8" height="437" fill="#c2a077"/>
+      <!-- capital: the abacus and the beaded row under it, carrying across the pilaster head -->
+      <rect x="-56.9" y="75" width="113.8" height="7" fill="#3a2a1a" opacity="0.35"/>
+      <rect x="-56.9" y="82" width="113.8" height="5" fill="#ffecdc" opacity="0.3"/>
+      <use href="#beadRow" x="-64" y="100"/>
+      <rect x="-56.9" y="112" width="113.8" height="9" fill="#3a2a1a" opacity="0.45"/>
+      <rect x="-56.9" y="121" width="113.8" height="4" fill="#ffecdc" opacity="0.14"/>
+      <!-- the shaft: a lit outer chamfer on the left, a shadowed one on the right, both outside a flat
+           raised band with its own lit top-left edge and shadowed bottom-right -->
+      <rect x="-56.9" y="125" width="11" height="337" fill="#ffecdc" opacity="0.42"/>
+      <rect x="-45.9" y="125" width="6" height="337" fill="#3a2a1a" opacity="0.16"/>
+      <rect x="45.9" y="125" width="11" height="337" fill="#3a2a1a" opacity="0.34"/>
+      <rect x="39.9" y="125" width="6" height="337" fill="#ffecdc" opacity="0.16"/>
+      <rect x="-23" y="137" width="46" height="315" fill="#ffecdc" opacity="0.1"/>
+      <rect x="-23" y="137" width="46" height="6" fill="#ffecdc" opacity="0.26"/>
+      <rect x="-23" y="446" width="46" height="6" fill="#3a2a1a" opacity="0.3"/>
+      <rect x="-23" y="137" width="5" height="315" fill="#ffecdc" opacity="0.2"/>
+      <rect x="18" y="137" width="5" height="315" fill="#3a2a1a" opacity="0.26"/>
+      <!-- foot: a lit line, a beaded row standing out of the shadow, and the moulding under it -->
+      <rect x="-56.9" y="462" width="113.8" height="5" fill="#ffecdc" opacity="0.3"/>
+      <rect x="-56.9" y="467" width="113.8" height="6" fill="#3a2a1a" opacity="0.35"/>
+      <use href="#beadRow" x="-64" y="486"/>
+      <rect x="-56.9" y="500" width="113.8" height="12" fill="#3a2a1a" opacity="0.32"/>
+    </g>
+  </defs>
+
+  <!-- THE WALL FACE: the stone the whole bay is cut from, and the ground everything is carved back into -->
+  <rect width="512" height="512" fill="#b08d63"/>
+
+  <!-- THE FRIEZE: a decorated band the full width of the bay, under the cornice and over the pilaster
+       heads the way an entablature carries across a colonnade. -->
+  <rect x="0" y="0" width="512" height="75" fill="#9a7850"/>
+  <!-- the scroll creeper: one path across the whole bay, four periods of 128, drawn from before the left
+       edge to past the right one so the bay's own edges are covered and the wave leaves no join line -->
+  <path d="M -8 46 C 6 30 42 30 56 46 C 70 62 106 62 120 46 C 134 30 170 30 184 46 C 198 62 234 62 248 46
+           C 262 30 298 30 312 46 C 326 62 362 62 376 46 C 390 30 426 30 440 46 C 454 62 490 62 504 46
+           C 512 36 514 33 520 30"
+        fill="none" stroke="#3a2a1a" stroke-opacity="0.5" stroke-width="6"/>
+  <path d="M -8 46 C 6 30 42 30 56 46 C 70 62 106 62 120 46 C 134 30 170 30 184 46 C 198 62 234 62 248 46
+           C 262 30 298 30 312 46 C 326 62 362 62 376 46 C 390 30 426 30 440 46 C 454 62 490 62 504 46
+           C 512 36 514 33 520 30"
+        fill="none" stroke="#ffecdc" stroke-opacity="0.26" stroke-width="2.6" transform="translate(0 -4)"/>
+  <!-- four lotus medallions, one to a 128-wide slot, riding the creeper -->
+  <use href="#lotusMedallion" transform="translate(64 40)"/>
+  <use href="#lotusMedallion" transform="translate(192 40)"/>
+  <use href="#lotusMedallion" transform="translate(320 40)"/>
+  <use href="#lotusMedallion" transform="translate(448 40)"/>
+  <!-- the lit order above the band, so the frieze reads as raised under the cornice -->
+  <rect x="0" y="0" width="512" height="7" fill="#c9a273"/>
+  <rect x="0" y="0" width="512" height="3" fill="#ffecdc" opacity="0.42"/>
+  <rect x="0" y="7" width="512" height="4" fill="#3a2a1a" opacity="0.3"/>
+  <!-- the moulding and the beaded row at the band's foot, then the shadow line under them -->
+  <rect x="0" y="59" width="512" height="7" fill="#a5825a"/>
+  <rect x="0" y="59" width="512" height="3" fill="#ffecdc" opacity="0.26"/>
+  <rect x="0" y="69" width="512" height="6" fill="#3a2a1a" opacity="0.72"/>
+  <use href="#beadRow" y="66"/>
+
+  <!-- THE MOULDING COURSE OVER THE PANEL: the capital moulding carrying across the bay from pilaster to
+       pilaster, with its own beaded row, so the wall reads as course over course of dressed stone -->
+  <rect x="0" y="75" width="512" height="50" fill="#a5825a"/>
+  <rect x="0" y="75" width="512" height="6" fill="#3a2a1a" opacity="0.55"/>
+  <rect x="0" y="81" width="512" height="4" fill="#ffecdc" opacity="0.3"/>
+  <use href="#beadRow" y="100"/>
+  <rect x="0" y="116" width="512" height="9" fill="#3a2a1a" opacity="0.5"/>
+
+  <!-- THE RECESSED PANEL: cut back into the face between the two half-pilasters, dark at the top and down
+       both sides where the stone overhangs it, lit along its foot where the sun reaches in -->
+  <rect x="57" y="125" width="398" height="337" fill="#6a4d2f"/>
+  <rect x="57" y="125" width="398" height="52" fill="url(#recessTop)"/>
+  <rect x="57" y="422" width="398" height="40" fill="url(#recessFoot)"/>
+  <rect x="57" y="125" width="46" height="337" fill="url(#recessFromLeft)"/>
+  <rect x="409" y="125" width="46" height="337" fill="url(#recessFromRight)"/>
+
+  <!-- the inset frame round the carving: a moulding standing inside the recess, lit along its outer top and
+       left, with the deep shadow of the recess cut along its inside edge -->
+  <rect x="107" y="175" width="298" height="237" fill="#6a4d2f" stroke="#a5825a" stroke-width="16"/>
+  <rect x="103" y="171" width="306" height="245" fill="none" stroke="#3a2a1a" stroke-opacity="0.5" stroke-width="5"/>
+  <path d="M 413 167 L 99 167 L 99 428" fill="none" stroke="#ffecdc" stroke-opacity="0.34" stroke-width="4"/>
+  <rect x="113" y="181" width="286" height="225" fill="none" stroke="#3a2a1a" stroke-opacity="0.55" stroke-width="6"/>
+  <path d="M 397 183 L 397 411 L 115 411" fill="none" stroke="#ffecdc" stroke-opacity="0.24" stroke-width="3"/>
+
+  <!-- the carving field inside the frame, a touch lifted out of the shadow, and a lotus bud with two beads
+       of carved ornament standing in the field either side of the diamond -->
+  <rect x="115" y="183" width="282" height="229" fill="#6a4d2f"/>
+  <rect x="115" y="183" width="282" height="229" fill="url(#fieldDepth)"/>
+  <g>
+    <ellipse cx="140" cy="226" rx="13" ry="24" fill="#a5825a" stroke="#3a2a1a" stroke-opacity="0.55" stroke-width="3.5"/>
+    <ellipse cx="136" cy="217" rx="5" ry="10" fill="#ffecdc" opacity="0.25"/>
+    <circle cx="140" cy="262" r="6" fill="#8a6a45" stroke="#3a2a1a" stroke-opacity="0.45" stroke-width="2.5"/>
+    <circle cx="140" cy="278" r="5" fill="#8a6a45" stroke="#3a2a1a" stroke-opacity="0.45" stroke-width="2.5"/>
+    <ellipse cx="372" cy="226" rx="13" ry="24" fill="#a5825a" stroke="#3a2a1a" stroke-opacity="0.55" stroke-width="3.5"/>
+    <ellipse cx="368" cy="217" rx="5" ry="10" fill="#ffecdc" opacity="0.25"/>
+    <circle cx="372" cy="262" r="6" fill="#8a6a45" stroke="#3a2a1a" stroke-opacity="0.45" stroke-width="2.5"/>
+    <circle cx="372" cy="278" r="5" fill="#8a6a45" stroke="#3a2a1a" stroke-opacity="0.45" stroke-width="2.5"/>
+  </g>
+
+  <!-- THE CARVED DIAMOND: a block cut proud of the field, its upper facets catching the light and its lower
+       ones in shadow, with a recess and a small cut jewel in the middle, all of it framed by a deep line -->
+  <path d="M 256 184 L 344 220 L 256 256 L 168 220 Z" fill="#8a6a45" stroke="#3a2a1a" stroke-opacity="0.6" stroke-width="6"/>
+  <path d="M 256 193 L 335 220 L 256 247 L 177 220 Z" fill="#c2a077"/>
+  <path d="M 177 220 L 256 193 L 335 220 Z" fill="#ffecdc" opacity="0.22"/>
+  <path d="M 177 220 L 256 247 L 335 220 Z" fill="#3a2a1a" opacity="0.18"/>
+  <path d="M 256 201 L 322 220 L 256 239 L 190 220 Z" fill="#6a4d2f"/>
+  <path d="M 190 220 L 256 201 L 322 220 Z" fill="#ffecdc" opacity="0.1"/>
+  <!-- a small cut diamond standing in the middle, not a round boss: a circle in a diamond reads as an eye -->
+  <path d="M 256 209 L 273 220 L 256 231 L 239 220 Z" fill="#a5825a" stroke="#3a2a1a" stroke-opacity="0.5" stroke-width="3"/>
+  <path d="M 239 220 L 256 209 L 273 220 Z" fill="#ffecdc" opacity="0.22"/>
+  <path d="M 256 215 L 265 220 L 256 225 L 247 220 Z" fill="#c2a077"/>
+
+  <!-- THE GUARDIAN IN THE PANEL: a squat seated figure carved in relief under the diamond, wide at the
+       knees and narrow at the crown so it fills the panel's lower half the way a temple figure does.
+       It is built from bold shapes with a shadow line round each one, because at the angle the wall is
+       seen from that line - not the modelling - is what makes the carving read. -->
+  <ellipse cx="256" cy="398" rx="104" ry="9" fill="#3a2a1a" opacity="0.35"/>
+  <rect x="140" y="396" width="232" height="11" fill="#8a6a45"/>
+  <rect x="140" y="396" width="232" height="4" fill="#ffecdc" opacity="0.18"/>
+  <rect x="140" y="405" width="232" height="4" fill="#3a2a1a" opacity="0.3"/>
+  <path d="M 194 384 L 318 384 L 318 396 L 194 396 Z" fill="#a5825a" stroke="#3a2a1a" stroke-opacity="0.55" stroke-width="4"/>
+  <ellipse cx="222" cy="391" rx="13" ry="8" fill="#c2a077" stroke="#3a2a1a" stroke-opacity="0.45" stroke-width="3"/>
+  <ellipse cx="290" cy="391" rx="13" ry="8" fill="#c2a077" stroke="#3a2a1a" stroke-opacity="0.45" stroke-width="3"/>
+  <path d="M 206 342 C 182 348 172 358 176 370" fill="none" stroke="#3a2a1a" stroke-opacity="0.5" stroke-width="21"/>
+  <path d="M 206 342 C 182 348 172 358 176 370" fill="none" stroke="#a5825a" stroke-width="14"/>
+  <path d="M 306 342 C 330 348 340 358 336 370" fill="none" stroke="#3a2a1a" stroke-opacity="0.5" stroke-width="21"/>
+  <path d="M 306 342 C 330 348 340 358 336 370" fill="none" stroke="#a5825a" stroke-width="14"/>
+  <ellipse cx="186" cy="368" rx="30" ry="22" fill="#c2a077" stroke="#3a2a1a" stroke-opacity="0.55" stroke-width="5"/>
+  <ellipse cx="178" cy="357" rx="11" ry="7" fill="#ffecdc" opacity="0.22"/>
+  <ellipse cx="326" cy="368" rx="30" ry="22" fill="#c2a077" stroke="#3a2a1a" stroke-opacity="0.55" stroke-width="5"/>
+  <ellipse cx="318" cy="357" rx="11" ry="7" fill="#ffecdc" opacity="0.22"/>
+  <path d="M 196 344 C 200 322 216 312 256 312 C 296 312 312 322 316 344 L 316 358 L 196 358 Z"
+        fill="#a5825a" stroke="#3a2a1a" stroke-opacity="0.5" stroke-width="5"/>
+  <path d="M 202 336 C 212 316 228 310 256 310" fill="none" stroke="#ffecdc" stroke-opacity="0.22" stroke-width="6"/>
+  <rect x="198" y="348" width="116" height="9" fill="#8a6a45"/>
+  <rect x="198" y="348" width="116" height="3" fill="#ffecdc" opacity="0.2"/>
+  <circle cx="232" cy="324" r="3.5" fill="#3a2a1a" opacity="0.5"/>
+  <circle cx="244" cy="327" r="3.5" fill="#3a2a1a" opacity="0.5"/>
+  <circle cx="256" cy="328" r="3.5" fill="#3a2a1a" opacity="0.5"/>
+  <circle cx="268" cy="327" r="3.5" fill="#3a2a1a" opacity="0.5"/>
+  <circle cx="280" cy="324" r="3.5" fill="#3a2a1a" opacity="0.5"/>
+  <!-- ears hanging as flat plaques either side, then the head, its brows and eyes, a bold wedge nose and a
+       carved mouth, then the tiered crown sitting over it - a face cut in planes, not a rounded cartoon -->
+  <ellipse cx="231" cy="302" rx="7" ry="12" fill="#a5825a" stroke="#3a2a1a" stroke-opacity="0.5" stroke-width="3.5"/>
+  <ellipse cx="281" cy="302" rx="7" ry="12" fill="#a5825a" stroke="#3a2a1a" stroke-opacity="0.5" stroke-width="3.5"/>
+  <ellipse cx="256" cy="296" rx="21" ry="22" fill="#c2a077" stroke="#3a2a1a" stroke-opacity="0.6" stroke-width="5"/>
+  <path d="M 238 289 C 242 285 248 285 251 288" fill="none" stroke="#3a2a1a" stroke-opacity="0.55" stroke-width="3.5"/>
+  <path d="M 261 288 C 264 285 270 285 274 289" fill="none" stroke="#3a2a1a" stroke-opacity="0.55" stroke-width="3.5"/>
+  <ellipse cx="244" cy="295" rx="4.5" ry="2.8" fill="#3a2a1a" opacity="0.8"/>
+  <ellipse cx="268" cy="295" rx="4.5" ry="2.8" fill="#3a2a1a" opacity="0.8"/>
+  <path d="M 252 294 L 260 294 L 256 304 Z" fill="#3a2a1a" opacity="0.45"/>
+  <path d="M 249 311 L 263 311" stroke="#3a2a1a" stroke-opacity="0.5" stroke-width="3" fill="none"/>
+  <path d="M 233 288 L 233 276 L 241 276 L 241 270 L 251 270 L 251 262 L 261 262 L 261 270 L 271 270 L 271 276 L 279 276 L 279 288 Z"
+        fill="#c2a077" stroke="#3a2a1a" stroke-opacity="0.55" stroke-width="3.5"/>
+  <path d="M 241 270 L 251 270 M 261 270 L 271 270 M 251 262 L 261 262" fill="none" stroke="#ffecdc" stroke-opacity="0.32" stroke-width="3"/>
+
+  <!-- THE MOULDING COURSE BELOW THE PANEL: the footing the face stands on, carrying across the bay, with a
+       beaded row and the shadow line that meets the plinth course of the wall below -->
+  <rect x="0" y="462" width="512" height="50" fill="#8a6a45"/>
+  <rect x="0" y="462" width="512" height="5" fill="#ffecdc" opacity="0.22"/>
+  <rect x="0" y="467" width="512" height="4" fill="#3a2a1a" opacity="0.18"/>
+  <use href="#beadRow" y="486"/>
+  <rect x="0" y="504" width="512" height="8" fill="#3a2a1a" opacity="0.3"/>
+
+  <!-- THE TWO HALF-PILASTERS: the same carving placed at either edge, so two bays meeting make one whole
+       pilaster between them and the wall reads as bays of carved stone rather than one endless panel -->
+  <use href="#pilaster" x="0"/>
+  <use href="#pilaster" x="512"/>
+</svg>

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>SaReGaMa</title>
+  <style>
+    html, body { margin: 0; height: 100%; overflow: hidden; background: #111; }
+    canvas { display: block; }
+    #file-warning { position: fixed; inset: 0; display: grid; place-items: center; padding: 2rem;
+      color: #fff; background: #111; font: 18px/1.5 system-ui, sans-serif; text-align: center; }
+    #file-warning[hidden] { display: none; }
+    code { background: #333; padding: 0.1em 0.4em; border-radius: 4px; }
+    /* the HUD sits above the canvas; it never takes clicks, the game is keyboard only */
+    #ui { position: fixed; inset: 0; z-index: 1; pointer-events: none; color: #ecd9b4;
+      font: 16px/1.4 system-ui, sans-serif; }
+    .hud { display: flex; justify-content: space-between; gap: 1rem; padding: 14px 18px;
+      font-variant-numeric: tabular-nums;
+      font-family: Georgia, 'Palatino Linotype', 'Book Antiqua', 'Times New Roman', serif; }
+    /* The in-play text wears the same temple gold serif as the screens, with a shadow so the score and
+       lives stay readable over a bright sky at any stage */
+    .hud-score, .hud-combo, .hud-lives { color: #f2c66d; letter-spacing: 0.12em;
+      text-shadow: 0 0 14px rgba(255, 190, 110, 0.4), 0 1px 3px rgba(0, 0, 0, 0.85); }
+    .hud-combo { flex: 1; text-align: center; color: #f6d78e; }
+    /* ---- Title and game-over screens: the live temple behind, framed in gold ----
+       These screens are a soft scrim, not a wall: the 3D temple keeps playing behind them. A focal
+       plate darkens the middle enough that the gold title and cream lines read crisply even if a bright
+       pillar passes behind, while the edges fall away and the space around the words stays partly clear. */
+    .screen { position: absolute; inset: 0; display: grid; place-content: center; gap: 0.5em;
+      padding: 2rem; text-align: center;
+      background:
+        radial-gradient(60% 48% at 50% 50%, rgba(9, 6, 17, 0.74) 0%, rgba(9, 6, 17, 0.5) 58%, rgba(9, 6, 17, 0) 100%),
+        radial-gradient(125% 100% at 50% 50%, rgba(12, 8, 22, 0.46) 0%, rgba(9, 6, 17, 0.6) 62%, rgba(5, 3, 10, 0.92) 100%); }
+    .screen[hidden] { display: none; }
+    /* ---- The title screen: the makers' own artwork full-bleed, the play rules written on it ----
+       The picture fills the screen and hides the game behind it, and the rules are laid over its middle -
+       straight across the menu the artwork was drawn with - on a soft dark panel, so the words read
+       against the sky and the buttons underneath them stop reading as anything you could press. */
+    .title-screen { background: url('assets/homescreen.jpeg') center / cover no-repeat; }
+    /* The menu the artwork was drawn with is taken out: a blurred, darkened band is laid across the middle
+       of the picture, so START GAME and the four buttons beneath it dissolve into the sky they sit on and
+       stop reading as anything you could press. The rules go on top of the band. */
+    .title-screen::before { content: ''; position: absolute; left: 0; right: 0; top: 38%; height: 52%;
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      background: linear-gradient(180deg, rgba(6, 4, 10, 0) 0%, rgba(6, 4, 10, 0.66) 14%,
+        rgba(6, 4, 10, 0.74) 86%, rgba(6, 4, 10, 0) 100%); }
+    .title-body { max-width: min(92vw, 42rem); align-content: center; justify-items: center; gap: 0.4em;
+      margin-top: 16vh; padding: 1.1rem 1.6rem 1.3rem; }
+    .title-body .title-ornament { margin: 0 auto 0.5em; }
+    .title-body .screen-prompt { margin-top: 0.9em; }
+    .title-legend { letter-spacing: 0.1em; color: #f0cd84; }
+    /* Display headings: the makers' temple gold serif, uppercase, with a warm glow behind it */
+    .screen-title { margin: 0 0 0.4em;
+      font-family: Georgia, 'Palatino Linotype', 'Book Antiqua', 'Times New Roman', serif;
+      font-size: 2.4rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #f2c66d; text-shadow: 0 0 18px rgba(255, 190, 110, 0.55), 0 2px 0 rgba(90, 50, 10, 0.6); }
+    /* The words sit inside the frame, held to a readable column whatever the window shape */
+    .screen-body { position: relative; z-index: 1; display: grid; justify-items: center; gap: 0.5em;
+      max-width: min(88vw, 44rem); padding: 0 clamp(0.5rem, 4vw, 3rem); }
+    /* The inset gold frame: an outer hairline rule, a second rule just inside it, and a small gold spur
+       at each corner. Thin on purpose, so it frames the words without competing with them. */
+    .screen-frame { position: absolute; inset: 18px; pointer-events: none; border-radius: 3px;
+      border: 1px solid rgba(226, 178, 96, 0.55); }
+    .screen-frame::before { content: ''; position: absolute; inset: 6px; border-radius: 2px;
+      border: 1px solid rgba(226, 178, 96, 0.28); }
+    .frame-corner { position: absolute; width: 16px; height: 16px; }
+    .frame-corner.c-tl { top: -2px; left: -2px; border-top: 2px solid #e6b96a; border-left: 2px solid #e6b96a; }
+    .frame-corner.c-tr { top: -2px; right: -2px; border-top: 2px solid #e6b96a; border-right: 2px solid #e6b96a; }
+    .frame-corner.c-bl { bottom: -2px; left: -2px; border-bottom: 2px solid #e6b96a; border-left: 2px solid #e6b96a; }
+    .frame-corner.c-br { bottom: -2px; right: -2px; border-bottom: 2px solid #e6b96a; border-right: 2px solid #e6b96a; }
+    .screen-line { margin: 0; opacity: 0.85; color: #ecd9b4;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8), 0 0 12px rgba(0, 0, 0, 0.55); }
+    /* Rule under the title: two tapering gold lines meeting two small gold studs around a diamond gem. */
+    .title-ornament { display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: min(70%, 20rem); margin: 0.1em auto 1.1em; }
+    .orn-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(226, 178, 96, 0) 0%, rgba(226, 178, 96, 0.85) 100%); }
+    .orn-line-right { background: linear-gradient(270deg, rgba(226, 178, 96, 0) 0%, rgba(226, 178, 96, 0.85) 100%); }
+    .orn-dot { width: 5px; height: 5px; transform: rotate(45deg); background: #e6b96a;
+      box-shadow: 0 0 6px rgba(255, 200, 120, 0.7); }
+    .orn-gem { position: relative; width: 12px; height: 12px; transform: rotate(45deg);
+      background: linear-gradient(135deg, #f6d68c, #c8903a); box-shadow: 0 0 10px rgba(255, 200, 120, 0.75); }
+    .orn-gem::after { content: ''; position: absolute; inset: 3px; background: #2a1c10;
+      box-shadow: inset 0 0 0 1px rgba(246, 214, 140, 0.9); }
+    /* The prompt as a stone-plaque bar: a gold double rule around a dark stone fill. */
+    .screen-prompt { position: relative; display: inline-block; margin: 1.9em auto 0; padding: 0.7em 2.1em;
+      opacity: 1; text-transform: uppercase; letter-spacing: 0.18em; color: #f0cd84; border-radius: 12px;
+      border: 1px solid rgba(230, 185, 106, 0.9);
+      background: linear-gradient(180deg, rgba(38, 29, 52, 0.94), rgba(14, 10, 24, 0.96));
+      box-shadow: inset 0 1px 0 rgba(255, 226, 160, 0.25), 0 2px 12px rgba(0, 0, 0, 0.5);
+      text-shadow: 0 0 12px rgba(255, 190, 110, 0.45), 0 1px 2px rgba(0, 0, 0, 0.7); }
+    .screen-prompt::before { content: ''; position: absolute; inset: 3px; border-radius: 9px; pointer-events: none;
+      border: 1px solid rgba(230, 185, 106, 0.4); }
+    /* ---- The game-over screen: the makers' own artwork, full bleed ----
+       The picture carries GAME OVER, the "SCORE" label and "Press SPACE to Play Again", and it leaves the
+       middle of its stone plaque bare. So the run's real number is laid straight onto that bare stone:
+       nothing has to be covered up this time. */
+    .over-screen { background: url('assets/gameover.png') center / cover no-repeat; }
+    /* The score is placed on the picture rather than laid out with the page: this covers the whole screen,
+       so the number can be dropped at the artwork's own coordinates. */
+    .over-screen .screen-body { position: absolute; inset: 0; display: block; max-width: none;
+      padding: 0; margin: 0; }
+    /* Where the plaque's bare centre sits in the artwork, as a share of the screen: 50% across, 57.4% down.
+       Raise or lower the 57.4% to move the score up or down the plaque. */
+    .over-patch { position: absolute; top: 57.4%; left: 50%; transform: translate(-50%, -50%);
+      padding: 0.2em 0.6em;
+      background: radial-gradient(70% 110% at 50% 50%, rgba(40, 26, 14, 0.5) 0%, rgba(40, 26, 14, 0.28) 58%, rgba(40, 26, 14, 0) 100%); }
+    .over-score-value { margin: 0;
+      font-family: Georgia, 'Palatino Linotype', 'Book Antiqua', 'Times New Roman', serif;
+      font-size: clamp(1.8rem, 5.4vw, 3.4rem); font-weight: 700; letter-spacing: 0.06em; color: #f7dda4;
+      text-shadow: 0 0 20px rgba(255, 190, 110, 0.85), 0 2px 5px rgba(0, 0, 0, 0.9); }
+  </style>
+  <!-- three.js comes from a CDN, pinned to one version. No install needed. -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="file-warning" hidden>
+    <p>This game needs a local server.<br>
+      In this folder run <code>python3 -m http.server 8000 --bind 127.0.0.1</code><br>
+      (Windows: <code>py -m http.server 8000 --bind 127.0.0.1</code>, or <code>python</code> instead of <code>py</code>)<br>
+      then open <a href="http://localhost:8000" style="color:#8cf">http://localhost:8000</a></p>
+  </div>
+  <script>
+    // Browsers block game code opened straight from a file. Say so instead of showing a blank page.
+    if (location.protocol === 'file:') document.getElementById('file-warning').hidden = false;
+  </script>
+  <div id="ui"></div>
+  <!-- If three.js (from the internet) or main.js fails to load, say so instead of showing a blank page. -->
+  <script type="module" src="./main.js" onerror="if(location.protocol!=='file:'){var w=document.getElementById('file-warning');w.textContent='The game could not load (check your internet), then refresh the page.';w.hidden=false}"></script>
+</body>
+</html>

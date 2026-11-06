@@ -1,0 +1,28 @@
+{
+  "title": "SaReGaMa",
+  "handle": "saregama",
+  "description": "An Indian dancer at the Vijayanagara temple of Hampi taps the seven musical pillars on the beat, building an orchestra of real instruments and opening portals into outer space.",
+  "assets": [
+    { "file": "assets/homescreen.jpeg", "source": "ChatGPT image generator, from the team's prompt \"make me the home screen and game over page for my game\"; artwork then worked on by nc. The rules text shown over it is Claude-written and is not part of the image file.", "license": "AI-generated (ChatGPT), used by the team under OpenAI's terms; no third-party artwork" },
+    { "file": "assets/gameover.png", "source": "ChatGPT image generator, from the team's prompt \"make me the home screen and game over page for my game\"; artwork then worked on by nc. The plaque is left bare in the picture, so the run's score is written over it by the game and is not part of the image file.", "license": "AI-generated (ChatGPT), used by the team under OpenAI's terms; no third-party artwork" },
+    { "file": "assets/audio/tabla.mp3", "source": "https://freesound.org/people/Sh%C5%8Dtotsu/sounds/689550/", "license": "CC0 1.0" },
+    { "file": "assets/audio/sitar.mp3", "source": "https://freesound.org/people/zgump/sounds/87436/", "license": "CC0 1.0" },
+    { "file": "assets/audio/flute.mp3", "source": "https://freesound.org/people/sankalp/sounds/179696/", "license": "CC BY 4.0 — credit: sankalp" },
+    { "file": "assets/audio/dhol.wav", "source": "https://commons.wikimedia.org/wiki/File:DHOL_BEAT.wav", "license": "CC BY 3.0 — credit: Johnny Kalsi / The Dhol Foundation. Excerpt cut from the longer source recording by Claude." },
+    { "file": "assets/audio/tanpura.mp3", "source": "https://freesound.org/people/luckylittleraven/sounds/416606/", "license": "CC0 1.0" }
+  ],
+  "ai_assets": [
+    "assets/temple-facade.svg",
+    "assets/temple-wall.svg",
+    "assets/models/pillar1.glb",
+    "assets/models/pillar2.glb",
+    "assets/models/pillar3.glb",
+    "assets/models/pillar4.glb",
+    "assets/models/pillar5.glb",
+    "assets/models/pillar6.glb",
+    "assets/models/pillar7.glb",
+    "assets/models/Dancer.glb",
+    "assets/models/Dancer_Rig.glb",
+    "assets/audio/dhol.wav"
+  ]
+}

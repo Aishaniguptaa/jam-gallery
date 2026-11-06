@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- temple-facade.svg - an original generated drawing of a South Indian temple front at golden hour: a tall
+     central gopuram of seven tapering tiers under a kalasha crown, two shorter flanking towers, a deep,
+     warmly lit doorway and a compound wall carrying a row of lamp niches. The light comes from the upper
+     left: every face is lit towards the left, every mass turns into real shade on its right, and one shared
+     horizontal ramp darkens the right third of the whole picture. Each tier is a stack of courses closing in
+     a cornice lip that projects, with a sunlit top face on the lip and a deep dark under-shadow beneath it.
+     Depth comes from layered value only - there is no outline anywhere in the file.
+     THE BACKGROUND IS FULLY TRANSPARENT: there is no sky, no rectangle and no full-canvas fill, so the
+     game's own sky shows above and behind the temple. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <title>Vijaya Vittala temple facade at golden hour</title>
+  <desc>Warm sandstone at golden hour: a seven-tier central gopuram under its crown, two shorter flanking
+    towers, a dark doorway glowing from within, and a compound wall of lit lamp niches. Everything above the
+    temple is left transparent for the sky behind it.</desc>
+
+  <defs>
+    <!-- STONE, FROM THE SUNLIT FACE DOWN TO THE DEEPEST RECESS: a wide, warm, golden-hour range. Sunlit faces
+         sit near #e8caa0 and #d8b489, mid faces at #b08d63, the shadowed side drops through #6b4f31 to
+         #4a3520, and under-faces and recesses go to #2e2013 and below. -->
+    <linearGradient id="litTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eccfa6"/>
+      <stop offset="1" stop-color="#d8b489"/>
+    </linearGradient>
+    <linearGradient id="faceLit" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d8b489"/>
+      <stop offset="1" stop-color="#b08d63"/>
+    </linearGradient>
+    <linearGradient id="midFace" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b08d63"/>
+      <stop offset="1" stop-color="#94724c"/>
+    </linearGradient>
+    <linearGradient id="shadowFace" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6b4f31"/>
+      <stop offset="1" stop-color="#4a3520"/>
+    </linearGradient>
+    <linearGradient id="deepFace" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4a3520"/>
+      <stop offset="1" stop-color="#2e2013"/>
+    </linearGradient>
+    <linearGradient id="underFace" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2e2013"/>
+      <stop offset="1" stop-color="#17100a"/>
+    </linearGradient>
+    <!-- the soft shade a projecting lip casts down onto the stone below it -->
+    <linearGradient id="castDown" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2e2013" stop-opacity="0.6"/>
+      <stop offset="0.55" stop-color="#2e2013" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#2e2013" stop-opacity="0"/>
+    </linearGradient>
+    <!-- ONE SHARED HORIZONTAL RAMP ACROSS THE WHOLE PICTURE: nothing across the lit left and middle of the
+         frame, then the right third steps steadily down, so the same ramp darkens every mass on the shadow
+         side. It is painted as an exact second copy of each mass, so the sky stays fully transparent. -->
+    <linearGradient id="sunShade" gradientUnits="userSpaceOnUse" x1="940" y1="0" x2="1600" y2="0">
+      <stop offset="0" stop-color="#2e2013" stop-opacity="0"/>
+      <stop offset="0.06" stop-color="#2e2013" stop-opacity="0.05"/>
+      <stop offset="0.22" stop-color="#2e2013" stop-opacity="0.3"/>
+      <stop offset="0.42" stop-color="#2e2013" stop-opacity="0.52"/>
+      <stop offset="0.62" stop-color="#241a10" stop-opacity="0.66"/>
+      <stop offset="0.8" stop-color="#241a10" stop-opacity="0.74"/>
+      <stop offset="1" stop-color="#241a10" stop-opacity="0.8"/>
+    </linearGradient>
+    <radialGradient id="doorGlow" cx="0.5" cy="0.86" r="0.72">
+      <stop offset="0" stop-color="#fff6dc"/>
+      <stop offset="0.22" stop-color="#ffe4ac"/>
+      <stop offset="0.5" stop-color="#ffc46a"/>
+      <stop offset="0.78" stop-color="#a86630"/>
+      <stop offset="1" stop-color="#2e2013"/>
+    </radialGradient>
+    <radialGradient id="doorHalo" cx="0.5" cy="0.6" r="0.5">
+      <stop offset="0" stop-color="#ffdca6" stop-opacity="0.6"/>
+      <stop offset="0.4" stop-color="#ffb463" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#ff9a3c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="groundPool" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffcf8a" stop-opacity="0.55"/>
+      <stop offset="0.45" stop-color="#e08a3c" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#c06a2a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="groundShade" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#1c130a" stop-opacity="0.65"/>
+      <stop offset="0.55" stop-color="#1c130a" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#1c130a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="lampGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fff0cc" stop-opacity="0.95"/>
+      <stop offset="0.4" stop-color="#ffc46a" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#ff9a3c" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- A KUDU: the small blind arch that runs along every cornice of every tier -->
+    <g id="kudu">
+      <path d="M -8 0 L -8 -8 A 8 8 0 0 1 8 -8 L 8 0 Z" fill="#1d1509"/>
+      <path d="M -6 -1 L -6 -8 A 6 6 0 0 1 6 -8 L 6 -1 Z" fill="#6b4f31"/>
+      <path d="M -6 -1 L -6 -8 A 6 6 0 0 1 -0.5 -8 L -0.5 -1 Z" fill="#c9a274"/>
+      <path d="M -9 -16 L 9 -16 L 9 -19 L -9 -19 Z" fill="#d8b489"/>
+    </g>
+
+    <!-- A CORNER FINIAL: the little pot that stands on the corner of every tier's cornice -->
+    <g id="cornerFinial">
+      <path d="M -7 0 L 7 0 L 6 -6 L -6 -6 Z" fill="#3a2a1a"/>
+      <path d="M -7 -6 L 7 -6 L 6 -8.5 L -6 -8.5 Z" fill="#e8caa0"/>
+      <path d="M -4.5 -8.5 C -7 -13 -4 -18 0 -18 C 4 -18 7 -13 4.5 -8.5 Z" fill="#b08d63"/>
+      <path d="M -4.5 -8.5 C -6 -12 -4 -16 -1.5 -17 C -3 -14 -3.5 -11 -2.5 -8.5 Z" fill="#e8caa0"/>
+      <path d="M 0 -8.5 C 3 -11 4 -15 1.5 -17 C 4 -14 6 -11 4.5 -8.5 Z" fill="#6b4f31"/>
+      <circle cx="0" cy="-20.5" r="2.6" fill="#f4e0ba"/>
+    </g>
+
+    <!-- A LAMP NICHE: one small lit shrine lamp set into the wall -->
+    <g id="lampNiche">
+      <path d="M -8 0 L -8 -8 A 8 8 0 0 1 8 -8 L 8 0 Z" fill="#1d1509"/>
+      <path d="M -6.5 -1.4 L 6.5 -1.4 L 6.5 0 L -6.5 0 Z" fill="#4a3520"/>
+      <circle cx="0" cy="-4" r="7" fill="url(#lampGlow)"/>
+      <circle cx="0" cy="-4.5" r="2.6" fill="#fff0cc"/>
+    </g>
+
+    <!-- THE KUDU ROWS: one row for each count a tier carries, laid out once and placed by the tiers below -->
+    <g id="row3"><use href="#kudu" x="-20"/><use href="#kudu" x="0"/><use href="#kudu" x="20"/></g>
+    <g id="row4"><use href="#kudu" x="-30"/><use href="#kudu" x="-10"/><use href="#kudu" x="10"/><use href="#kudu" x="30"/></g>
+    <g id="row6"><use href="#kudu" x="-50"/><use href="#kudu" x="-30"/><use href="#kudu" x="-10"/><use href="#kudu" x="10"/><use href="#kudu" x="30"/><use href="#kudu" x="50"/></g>
+    <g id="row8"><use href="#kudu" x="-70"/><use href="#kudu" x="-50"/><use href="#kudu" x="-30"/><use href="#kudu" x="-10"/><use href="#kudu" x="10"/><use href="#kudu" x="30"/><use href="#kudu" x="50"/><use href="#kudu" x="70"/></g>
+    <g id="row10"><use href="#kudu" x="-90"/><use href="#kudu" x="-70"/><use href="#kudu" x="-50"/><use href="#kudu" x="-30"/><use href="#kudu" x="-10"/><use href="#kudu" x="10"/><use href="#kudu" x="30"/><use href="#kudu" x="50"/><use href="#kudu" x="70"/><use href="#kudu" x="90"/></g>
+    <g id="row12"><use href="#kudu" x="-110"/><use href="#kudu" x="-90"/><use href="#kudu" x="-70"/><use href="#kudu" x="-50"/><use href="#kudu" x="-30"/><use href="#kudu" x="-10"/><use href="#kudu" x="10"/><use href="#kudu" x="30"/><use href="#kudu" x="50"/><use href="#kudu" x="70"/><use href="#kudu" x="90"/><use href="#kudu" x="110"/></g>
+    <g id="row14"><use href="#kudu" x="-130"/><use href="#kudu" x="-110"/><use href="#kudu" x="-90"/><use href="#kudu" x="-70"/><use href="#kudu" x="-50"/><use href="#kudu" x="-30"/><use href="#kudu" x="-10"/><use href="#kudu" x="10"/><use href="#kudu" x="30"/><use href="#kudu" x="50"/><use href="#kudu" x="70"/><use href="#kudu" x="90"/><use href="#kudu" x="110"/><use href="#kudu" x="130"/></g>
+    <g id="row16"><use href="#kudu" x="-150"/><use href="#kudu" x="-130"/><use href="#kudu" x="-110"/><use href="#kudu" x="-90"/><use href="#kudu" x="-70"/><use href="#kudu" x="-50"/><use href="#kudu" x="-30"/><use href="#kudu" x="-10"/><use href="#kudu" x="10"/><use href="#kudu" x="30"/><use href="#kudu" x="50"/><use href="#kudu" x="70"/><use href="#kudu" x="90"/><use href="#kudu" x="110"/><use href="#kudu" x="130"/><use href="#kudu" x="150"/></g>
+
+    <!-- THE LAMP ROW: eleven niches, spaced so that two of them cover the whole compound wall -->
+    <g id="lampRow"><use href="#lampNiche" x="-280"/><use href="#lampNiche" x="-224"/><use href="#lampNiche" x="-168"/><use href="#lampNiche" x="-112"/><use href="#lampNiche" x="-56"/><use href="#lampNiche" x="0"/><use href="#lampNiche" x="56"/><use href="#lampNiche" x="112"/><use href="#lampNiche" x="168"/><use href="#lampNiche" x="224"/><use href="#lampNiche" x="280"/></g>
+    <!-- THE FLANKING DOOR: the glowing opening of a flanking tower, drawn again on top of the shade so
+         that it stays the brightest thing in its own mass -->
+    <g id="flankDoor">
+      <path d="M -20 848 L -20 822 A 20 20 0 0 1 20 822 L 20 848 Z" fill="url(#doorGlow)"/>
+    </g>
+    <g id="bigDoor">
+      <path d="M -46 776 A 46 46 0 0 1 46 776 L 46 828 L -46 828 Z" fill="url(#doorGlow)"/>
+    </g>
+    <g id="flankTower">
+    <!-- A FLANKING TOWER: plinth, wall with its own lit door, a projecting cornice, four tiers that
+         each close in a flared lip over a dark under-shadow, and a small crown. -->
+    <path d="M -118 872 L 118 872 L 118 880 L -118 880 Z" fill="url(#litTop)"/>
+    <path d="M -118 872 L 118 872 L 118 874.5 L -118 874.5 Z" fill="#f4e0ba"/>
+    <path d="M -118 880 L 24 880 L 24 890 L -118 890 Z" fill="url(#faceLit)"/>
+    <path d="M 24 880 L 118 880 L 118 890 L 24 890 Z" fill="url(#shadowFace)"/>
+    <path d="M -118 880 L -110 880 L -110 890 L -118 890 Z" fill="url(#litTop)"/>
+    <path d="M -118 890 L 118 890 L 118 900 L -118 900 Z" fill="url(#deepFace)"/>
+    <path d="M -104 848 L 104 848 L 104 856 L -104 856 Z" fill="url(#litTop)"/>
+    <path d="M -104 848 L 104 848 L 104 850.5 L -104 850.5 Z" fill="#f4e0ba"/>
+    <path d="M -104 856 L 22 856 L 22 866 L -104 866 Z" fill="url(#faceLit)"/>
+    <path d="M 22 856 L 104 856 L 104 866 L 22 866 Z" fill="url(#shadowFace)"/>
+    <path d="M -104 866 L 104 866 L 104 872 L -104 872 Z" fill="url(#shadowFace)"/>
+    <path d="M -94 752 L 20 752 L 20 848 L -94 848 Z" fill="url(#faceLit)"/>
+    <path d="M 20 752 L 94 752 L 94 848 L 20 848 Z" fill="url(#shadowFace)"/>
+    <path d="M -94 752 L -86 752 L -86 848 L -94 848 Z" fill="url(#litTop)"/>
+  <path d="M -94 768.4 L 94 768.4 L 94 766 L -94 766 Z" fill="#2e2013" opacity="0.3"/>
+  <path d="M -94 769.8 L 20 769.8 L 20 768.4 L -94 768.4 Z" fill="#e8caa0" opacity="0.3"/>
+  <path d="M -94 792.4 L 94 792.4 L 94 790 L -94 790 Z" fill="#2e2013" opacity="0.3"/>
+  <path d="M -94 793.8 L 20 793.8 L 20 792.4 L -94 792.4 Z" fill="#e8caa0" opacity="0.3"/>
+  <path d="M -94 816.4 L 94 816.4 L 94 814 L -94 814 Z" fill="#2e2013" opacity="0.3"/>
+  <path d="M -94 817.8 L 20 817.8 L 20 816.4 L -94 816.4 Z" fill="#e8caa0" opacity="0.3"/>
+    <path d="M -81 762 L -78 762 L -78 842 L -81 842 Z" fill="#e8caa0" opacity="0.5"/>
+    <path d="M -78 762 L -74 762 L -74 842 L -78 842 Z" fill="#2e2013" opacity="0.3"/>
+    <path d="M -51 762 L -48 762 L -48 842 L -51 842 Z" fill="#e8caa0" opacity="0.5"/>
+    <path d="M -48 762 L -44 762 L -44 842 L -48 842 Z" fill="#2e2013" opacity="0.3"/>
+    <path d="M 41 762 L 44 762 L 44 842 L 41 842 Z" fill="#e8caa0" opacity="0.5"/>
+    <path d="M 44 762 L 48 762 L 48 842 L 44 842 Z" fill="#2e2013" opacity="0.3"/>
+    <path d="M 71 762 L 74 762 L 74 842 L 71 842 Z" fill="#e8caa0" opacity="0.5"/>
+    <path d="M 74 762 L 78 762 L 78 842 L 74 842 Z" fill="#2e2013" opacity="0.3"/>
+    <path d="M -26 848 L -26 818 L -6 800 L 6 800 L 26 818 L 26 848 Z" fill="url(#deepFace)"/>
+    <use href="#flankDoor"/>
+    <path d="M -30 841 L 30 841 L 30 848 L -30 848 Z" fill="#2e2013" opacity="0.5"/>
+    <path d="M -30 841 L 30 841 L 30 843.5 L -30 843.5 Z" fill="#f4e0ba"/>
+    <use href="#lampNiche" transform="translate(-58 842) scale(0.85)"/>
+    <use href="#lampNiche" transform="translate(58 842) scale(0.85)"/>
+    <path d="M -112 738 L 112 738 L 112 752 L -112 752 Z" fill="url(#midFace)"/>
+    <path d="M -114 726 L 114 726 L 114 733.5 L -114 733.5 Z" fill="url(#litTop)"/>
+    <path d="M -114 726 L 114 726 L 114 728.5 L -114 728.5 Z" fill="#f4e0ba"/>
+    <path d="M -114 733.5 L 30 733.5 L 30 738 L -114 738 Z" fill="url(#faceLit)"/>
+    <path d="M 30 733.5 L 114 733.5 L 114 738 L 30 738 Z" fill="url(#shadowFace)"/>
+    <path d="M -114 738 L 114 738 L 100 746 L -100 746 Z" fill="url(#underFace)"/>
+    <path d="M -112 746 L 112 746 L 112 766 L -112 766 Z" fill="url(#castDown)"/>
+    <path d="M -86 681 L 47.3 681 L 42.9 726 L -78 726 Z" fill="url(#faceLit)"/>
+    <path d="M 47.3 681 L 86 681 L 78 726 L 42.9 726 Z" fill="url(#shadowFace)"/>
+    <path d="M -86 681 L -79 681 L -71 726 L -78 726 Z" fill="url(#litTop)"/>
+    <path d="M -80.1 716.7 L 80.1 716.7 L 80.1 714.3 L -80.1 714.3 Z" fill="#2e2013" opacity="0.3"/>
+    <path d="M -80.1 718.1 L 34 718.1 L 34 716.7 L -80.1 716.7 Z" fill="#e8caa0" opacity="0.3"/>
+    <use href="#row8" transform="translate(0 706)"/>
+    <path d="M 47.3 681 L 86 681 L 78 726 L 42.9 726 Z" fill="#2e2013" opacity="0.6"/>
+    <path d="M -86 681 L 86 681 L 77 686 L -77 686 Z" fill="url(#underFace)"/>
+    <path d="M -78 720 L 78 720 L 75 726 L -75 726 Z" fill="url(#underFace)"/>
+    <path d="M -81 674 L 81 674 L 81 681 L -81 681 Z" fill="url(#litTop)"/>
+    <path d="M -81 674 L 81 674 L 81 676.5 L -81 676.5 Z" fill="#f4e0ba"/>
+    <use href="#cornerFinial" transform="translate(-70 674) scale(0.65)"/>
+    <use href="#cornerFinial" transform="translate(70 674) scale(0.65)"/>
+    <path d="M -70 636 L 38.5 636 L 34.1 681 L -62 681 Z" fill="url(#faceLit)"/>
+    <path d="M 38.5 636 L 70 636 L 62 681 L 34.1 681 Z" fill="url(#shadowFace)"/>
+    <path d="M -70 636 L -63 636 L -55 681 L -62 681 Z" fill="url(#litTop)"/>
+    <path d="M -64.1 671.7 L 64.1 671.7 L 64.1 669.3 L -64.1 669.3 Z" fill="#2e2013" opacity="0.3"/>
+    <path d="M -64.1 673.1 L 25.2 673.1 L 25.2 671.7 L -64.1 671.7 Z" fill="#e8caa0" opacity="0.3"/>
+    <use href="#row4" transform="translate(0 660)"/>
+    <path d="M 38.5 636 L 70 636 L 62 681 L 34.1 681 Z" fill="#2e2013" opacity="0.6"/>
+    <path d="M -70 636 L 70 636 L 61 641 L -61 641 Z" fill="url(#underFace)"/>
+    <path d="M -62 675 L 62 675 L 59 681 L -59 681 Z" fill="url(#underFace)"/>
+    <path d="M -65 629 L 65 629 L 65 636 L -65 636 Z" fill="url(#litTop)"/>
+    <path d="M -65 629 L 65 629 L 65 631.5 L -65 631.5 Z" fill="#f4e0ba"/>
+    <use href="#cornerFinial" transform="translate(-54 629) scale(0.6)"/>
+    <use href="#cornerFinial" transform="translate(54 629) scale(0.6)"/>
+    <path d="M -54 591 L 29.7 591 L 25.3 636 L -46 636 Z" fill="url(#faceLit)"/>
+    <path d="M 29.7 591 L 54 591 L 46 636 L 25.3 636 Z" fill="url(#shadowFace)"/>
+    <path d="M -54 591 L -47 591 L -39 636 L -46 636 Z" fill="url(#litTop)"/>
+    <path d="M -48.1 626.7 L 48.1 626.7 L 48.1 624.3 L -48.1 624.3 Z" fill="#2e2013" opacity="0.3"/>
+    <path d="M -48.1 628.1 L 16.4 628.1 L 16.4 626.7 L -48.1 626.7 Z" fill="#e8caa0" opacity="0.3"/>
+    <use href="#row3" transform="translate(0 613)"/>
+    <path d="M 29.7 591 L 54 591 L 46 636 L 25.3 636 Z" fill="#2e2013" opacity="0.6"/>
+    <path d="M -54 591 L 54 591 L 45 596 L -45 596 Z" fill="url(#underFace)"/>
+    <path d="M -46 630 L 46 630 L 43 636 L -43 636 Z" fill="url(#underFace)"/>
+    <path d="M -49 584 L 49 584 L 49 591 L -49 591 Z" fill="url(#litTop)"/>
+    <path d="M -49 584 L 49 584 L 49 586.5 L -49 586.5 Z" fill="#f4e0ba"/>
+    <use href="#cornerFinial" transform="translate(-38 584) scale(0.55)"/>
+    <use href="#cornerFinial" transform="translate(38 584) scale(0.55)"/>
+    <path d="M -38 546 L 20.9 546 L 16.5 591 L -30 591 Z" fill="url(#faceLit)"/>
+    <path d="M 20.9 546 L 38 546 L 30 591 L 16.5 591 Z" fill="url(#shadowFace)"/>
+    <path d="M -38 546 L -31 546 L -23 591 L -30 591 Z" fill="url(#litTop)"/>
+    <path d="M -32.1 581.7 L 32.1 581.7 L 32.1 579.3 L -32.1 579.3 Z" fill="#2e2013" opacity="0.3"/>
+    <path d="M -32.1 583.1 L 7.6 583.1 L 7.6 581.7 L -32.1 581.7 Z" fill="#e8caa0" opacity="0.3"/>
+    <use href="#row3" transform="translate(0 566)"/>
+    <path d="M 20.9 546 L 38 546 L 30 591 L 16.5 591 Z" fill="#2e2013" opacity="0.6"/>
+    <path d="M -38 546 L 38 546 L 29 551 L -29 551 Z" fill="url(#underFace)"/>
+    <path d="M -30 585 L 30 585 L 27 591 L -27 591 Z" fill="url(#underFace)"/>
+    <path d="M -33 539 L 33 539 L 33 546 L -33 546 Z" fill="url(#litTop)"/>
+    <path d="M -33 539 L 33 539 L 33 541.5 L -33 541.5 Z" fill="#f4e0ba"/>
+    <use href="#cornerFinial" transform="translate(-22 539) scale(0.5)"/>
+    <use href="#cornerFinial" transform="translate(22 539) scale(0.5)"/>
+    <!-- its own small crown: stepped caps, the ringed neck, the amalaka, the pot, the spike, the bead -->
+    <path d="M -34 524 L 34 524 L 22 546 L -22 546 Z" fill="url(#faceLit)"/>
+    <path d="M 6 524 L 34 524 L 22 546 L 6 546 Z" fill="url(#shadowFace)"/>
+    <path d="M -34 541 L 34 541 L 34 546 L -34 546 Z" fill="url(#underFace)" opacity="0.6"/>
+    <path d="M -22 517 L 22 517 L 22 524 L -22 524 Z" fill="url(#litTop)"/>
+    <path d="M -22 517 L 22 517 L 22 519.5 L -22 519.5 Z" fill="#f4e0ba"/>
+    <path d="M -22 502 L 22 502 L 14 524 L -14 524 Z" fill="url(#faceLit)"/>
+    <path d="M 4 502 L 22 502 L 14 524 L 4 524 Z" fill="url(#shadowFace)"/>
+    <path d="M -20 518 L 20 518 L 20 524 L -20 524 Z" fill="url(#underFace)" opacity="0.6"/>
+    <path d="M -14 496 L 14 496 L 14 502 L -14 502 Z" fill="url(#litTop)"/>
+    <path d="M -14 496 L 14 496 L 14 498.5 L -14 498.5 Z" fill="#f4e0ba"/>
+    <path d="M -11 484 L 11 484 L 11 502 L -11 502 Z" fill="url(#midFace)"/>
+    <path d="M 3 484 L 11 484 L 11 502 L 3 502 Z" fill="url(#shadowFace)"/>
+    <path d="M -13 495 L 13 495 L 13 499 L -13 499 Z" fill="url(#litTop)"/>
+    <path d="M -13 486 L 13 486 L 13 490 L -13 490 Z" fill="url(#litTop)"/>
+    <ellipse cx="0" cy="478" rx="20" ry="8" fill="url(#midFace)"/>
+    <path d="M -20 478 A 20 8 0 0 1 20 478 Z" fill="url(#litTop)"/>
+    <path d="M 3 470.6 L 20 478 L 3 478 Z" fill="url(#shadowFace)"/>
+    <path d="M -8 464 L 8 464 L 8 472 L -8 472 Z" fill="url(#midFace)"/>
+    <path d="M -8 464 L 8 464 L 8 468 L -8 468 Z" fill="url(#litTop)"/>
+    <path d="M -8 464 L 3 464 L 3 472 L -8 472 Z" fill="url(#faceLit)"/>
+    <path d="M 3 464 L 8 464 L 8 472 L 3 472 Z" fill="url(#shadowFace)"/>
+    <path d="M -7 464 L -13 459 L -12 450 L -5 445 L -3 444 L -1 442 L 0 439 L 1 442 L 3 444 L 5 445 L 12 450 L 13 459 L 7 464 Z" fill="url(#midFace)"/>
+    <path d="M -7 464 L -11 460 L -11 452 L -5 447 L -3 443 L -1 445 L -4 449 L -6 455 L -6 460 L -5 464 Z" fill="url(#litTop)"/>
+    <path d="M 0 464 L 6 461 L 8 453 L 5 447 L 3 443 L 1 445 L 4 449 L 5 456 L 3 464 Z" fill="url(#shadowFace)"/>
+    <path d="M -4 439 L 4 439 L 0 427 Z" fill="url(#midFace)"/>
+    <path d="M -4 439 L 0 439 L 0 427 Z" fill="url(#litTop)"/>
+    <circle cx="0" cy="425" r="3.6" fill="#f4e0ba"/>
+    </g>
+  </defs>
+  <!-- THE COMPOUND WALL: it runs the full width of the picture, well below the towers, behind a
+       projecting coping with its own lit top face, a dark under-shadow and a row of lit lamp niches
+       in course-jointed masonry. Its right end falls away under the same shared shadow ramp. -->
+  <path d="M 0 864 L 1600 864 L 1600 890 L 0 890 Z" fill="url(#midFace)"/>
+  <path d="M 0 868.4 L 1600 868.4 L 1600 866 L 0 866 Z" fill="#2e2013" opacity="0.3"/>
+  <path d="M 0 869.8 L 1000 869.8 L 1000 868.4 L 0 868.4 Z" fill="#e8caa0" opacity="0.3"/>
+  <path d="M 0 886.4 L 1600 886.4 L 1600 884 L 0 884 Z" fill="#2e2013" opacity="0.3"/>
+  <path d="M 0 887.8 L 1000 887.8 L 1000 886.4 L 0 886.4 Z" fill="#e8caa0" opacity="0.3"/>
+  <path d="M 0 864 L 1600 864 L 1600 888 L 0 888 Z" fill="url(#castDown)"/>
+  <path d="M 0 890 L 1600 890 L 1600 900 L 0 900 Z" fill="url(#deepFace)"/>
+  <path d="M 0 858 L 1600 858 L 1600 864 L 0 864 Z" fill="url(#underFace)"/>
+  <path d="M 0 848 L 1600 848 L 1600 858 L 0 858 Z" fill="url(#litTop)"/>
+  <path d="M 0 848 L 1600 848 L 1600 850.5 L 0 850.5 Z" fill="#f4e0ba"/>
+  <use href="#lampRow" transform="translate(280 880)"/>
+  <use href="#lampRow" transform="translate(1320 880)"/>
+  <path d="M 0 864 L 1600 864 L 1600 890 L 0 890 Z M 0 890 L 1600 890 L 1600 900 L 0 900 Z M 0 858 L 1600 858 L 1600 864 L 0 864 Z M 0 848 L 1600 848 L 1600 858 L 0 858 Z" fill="url(#sunShade)"/>
+  <ellipse cx="800" cy="904" rx="880" ry="40" fill="url(#groundShade)"/>
+  <ellipse cx="330" cy="902" rx="190" ry="30" fill="url(#groundShade)"/>
+  <ellipse cx="1270" cy="902" rx="190" ry="30" fill="url(#groundShade)"/>
+  <!-- THE FLANKING TOWERS: the same tower twice, a little under half the height of the middle one.
+       The sun is on the left, so one stands in the light and the other falls into the shade. The
+       share of the shadow ramp is struck over each tower here, in canvas space, which is what makes
+       one tower golden and the other dark, and then the lamps and the doorway stay lit on top -->
+  <use href="#flankTower" transform="translate(330 0)"/>
+  <path d="M 212 872 L 448 872 L 448 880 L 212 880 Z M 212 880 L 448 880 L 448 890 L 212 890 Z M 212 890 L 448 890 L 448 900 L 212 900 Z M 226 848 L 434 848 L 434 856 L 226 856 Z M 226 856 L 434 856 L 434 866 L 226 866 Z M 226 866 L 434 866 L 434 872 L 226 872 Z M 236 752 L 424 752 L 424 848 L 236 848 Z M 218 738 L 442 738 L 442 752 L 218 752 Z M 216 726 L 444 726 L 444 733.5 L 216 733.5 Z M 216 733.5 L 444 733.5 L 444 738 L 216 738 Z M 244 681 L 416 681 L 408 726 L 252 726 Z M 249 674 L 411 674 L 411 681 L 249 681 Z M 260 636 L 400 636 L 392 681 L 268 681 Z M 265 629 L 395 629 L 395 636 L 265 636 Z M 276 591 L 384 591 L 376 636 L 284 636 Z M 281 584 L 379 584 L 379 591 L 281 591 Z M 292 546 L 368 546 L 360 591 L 300 591 Z M 297 539 L 363 539 L 363 546 L 297 546 Z M 296 524 L 364 524 L 352 546 L 308 546 Z M 308 517 L 352 517 L 352 524 L 308 524 Z M 308 502 L 352 502 L 344 524 L 316 524 Z M 316 496 L 344 496 L 344 502 L 316 502 Z M 319 484 L 341 484 L 341 502 L 319 502 Z M 310 478 A 20 8 0 1 1 350 478 A 20 8 0 1 1 310 478 Z" fill="url(#sunShade)"/>
+  <ellipse cx="330" cy="800" rx="88" ry="44" fill="url(#doorHalo)"/>
+  <ellipse cx="330" cy="858" rx="76" ry="18" fill="url(#groundPool)"/>
+  <use href="#flankDoor" transform="translate(330 0)"/>
+  <use href="#lampNiche" transform="translate(272 842) scale(0.85)"/>
+  <use href="#lampNiche" transform="translate(388 842) scale(0.85)"/>
+  <use href="#flankTower" transform="translate(1270 0)"/>
+  <path d="M 1152 872 L 1388 872 L 1388 880 L 1152 880 Z M 1152 880 L 1388 880 L 1388 890 L 1152 890 Z M 1152 890 L 1388 890 L 1388 900 L 1152 900 Z M 1166 848 L 1374 848 L 1374 856 L 1166 856 Z M 1166 856 L 1374 856 L 1374 866 L 1166 866 Z M 1166 866 L 1374 866 L 1374 872 L 1166 872 Z M 1176 752 L 1364 752 L 1364 848 L 1176 848 Z M 1158 738 L 1382 738 L 1382 752 L 1158 752 Z M 1156 726 L 1384 726 L 1384 733.5 L 1156 733.5 Z M 1156 733.5 L 1384 733.5 L 1384 738 L 1156 738 Z M 1184 681 L 1356 681 L 1348 726 L 1192 726 Z M 1189 674 L 1351 674 L 1351 681 L 1189 681 Z M 1200 636 L 1340 636 L 1332 681 L 1208 681 Z M 1205 629 L 1335 629 L 1335 636 L 1205 636 Z M 1216 591 L 1324 591 L 1316 636 L 1224 636 Z M 1221 584 L 1319 584 L 1319 591 L 1221 591 Z M 1232 546 L 1308 546 L 1300 591 L 1240 591 Z M 1237 539 L 1303 539 L 1303 546 L 1237 546 Z M 1236 524 L 1304 524 L 1292 546 L 1248 546 Z M 1248 517 L 1292 517 L 1292 524 L 1248 524 Z M 1248 502 L 1292 502 L 1284 524 L 1256 524 Z M 1256 496 L 1284 496 L 1284 502 L 1256 502 Z M 1259 484 L 1281 484 L 1281 502 L 1259 502 Z M 1250 478 A 20 8 0 1 1 1290 478 A 20 8 0 1 1 1250 478 Z" fill="url(#sunShade)"/>
+  <ellipse cx="1270" cy="800" rx="88" ry="44" fill="url(#doorHalo)"/>
+  <ellipse cx="1270" cy="858" rx="76" ry="18" fill="url(#groundPool)"/>
+  <use href="#flankDoor" transform="translate(1270 0)"/>
+  <use href="#lampNiche" transform="translate(1212 842) scale(0.85)"/>
+  <use href="#lampNiche" transform="translate(1328 842) scale(0.85)"/>
+    <!-- THE CENTRAL GOPURAM: seven tapering tiers, each one a stack of courses closing in a cornice
+         lip that projects, with a sunlit top face on the lip and a deep dark under-shadow beneath; a
+         deep glowing doorway; and the kalasha crown. The whole tower is drawn twice: once as stone, then
+         once more as the shared shadow ramp, so its right side falls away into real shade. -->
+    <g transform="translate(800 0)">
+    <!-- THE PLINTH: three stepped courses, each with a lit top face, a lit face and a dark base -->
+    <path d="M -252 872 L 252 872 L 252 880 L -252 880 Z" fill="url(#litTop)"/>
+    <path d="M -252 872 L 252 872 L 252 874.5 L -252 874.5 Z" fill="#f4e0ba"/>
+    <path d="M -252 880 L 106 880 L 106 890 L -252 890 Z" fill="url(#faceLit)"/>
+    <path d="M 106 880 L 252 880 L 252 890 L 106 890 Z" fill="url(#shadowFace)"/>
+    <path d="M -252 890 L 252 890 L 252 900 L -252 900 Z" fill="url(#deepFace)"/>
+    <path d="M -234 848 L 234 848 L 234 856 L -234 856 Z" fill="url(#litTop)"/>
+    <path d="M -234 848 L 234 848 L 234 850.5 L -234 850.5 Z" fill="#f4e0ba"/>
+    <path d="M -234 856 L 100 856 L 100 866 L -234 866 Z" fill="url(#faceLit)"/>
+    <path d="M 100 856 L 234 856 L 234 866 L 100 866 Z" fill="url(#shadowFace)"/>
+    <path d="M -234 866 L 234 866 L 234 872 L -234 872 Z" fill="url(#shadowFace)"/>
+    <path d="M -216 828 L 216 828 L 216 836 L -216 836 Z" fill="url(#litTop)"/>
+    <path d="M -216 828 L 216 828 L 216 830.5 L -216 830.5 Z" fill="#f4e0ba"/>
+    <path d="M -216 836 L 92 836 L 92 842 L -216 842 Z" fill="url(#faceLit)"/>
+    <path d="M 92 836 L 216 836 L 216 842 L 92 842 Z" fill="url(#shadowFace)"/>
+    <path d="M -216 842 L 216 842 L 216 848 L -216 848 Z" fill="url(#shadowFace)"/>
+    <!-- THE WALL AND THE DOORWAY: course-jointed masonry, a lit arris on the left, the dark opening
+         of the shrine glowing from within and spilling a warm pool onto the stone in front of it -->
+    <path d="M -198 640 L 99 640 L 99 828 L -198 828 Z" fill="url(#faceLit)"/>
+    <path d="M 99 640 L 198 640 L 198 828 L 99 828 Z" fill="url(#shadowFace)"/>
+    <path d="M -198 640 L -190 640 L -190 828 L -198 828 Z" fill="url(#litTop)"/>
+  <path d="M -198 658.4 L 198 658.4 L 198 656 L -198 656 Z" fill="#2e2013" opacity="0.3"/>
+  <path d="M -198 659.8 L 99 659.8 L 99 658.4 L -198 658.4 Z" fill="#e8caa0" opacity="0.3"/>
+  <path d="M -198 728.4 L 198 728.4 L 198 726 L -198 726 Z" fill="#2e2013" opacity="0.3"/>
+  <path d="M -198 729.8 L 99 729.8 L 99 728.4 L -198 728.4 Z" fill="#e8caa0" opacity="0.3"/>
+  <path d="M -198 762.4 L 198 762.4 L 198 760 L -198 760 Z" fill="#2e2013" opacity="0.3"/>
+  <path d="M -198 763.8 L 99 763.8 L 99 762.4 L -198 762.4 Z" fill="#e8caa0" opacity="0.3"/>
+  <path d="M -198 798.4 L 198 798.4 L 198 796 L -198 796 Z" fill="#2e2013" opacity="0.3"/>
+  <path d="M -198 799.8 L 99 799.8 L 99 798.4 L -198 798.4 Z" fill="#e8caa0" opacity="0.3"/>
+    <path d="M -183 700 L -180 700 L -180 818 L -183 818 Z" fill="#e8caa0" opacity="0.5"/>
+    <path d="M -180 700 L -176 700 L -176 818 L -180 818 Z" fill="#2e2013" opacity="0.3"/>
+    <path d="M -149 700 L -146 700 L -146 818 L -149 818 Z" fill="#e8caa0" opacity="0.5"/>
+    <path d="M -146 700 L -142 700 L -142 818 L -146 818 Z" fill="#2e2013" opacity="0.3"/>
+    <path d="M 109 700 L 112 700 L 112 818 L 109 818 Z" fill="#6b4f31" opacity="0.6"/>
+    <path d="M 112 700 L 116 700 L 116 818 L 112 818 Z" fill="#2e2013" opacity="0.5"/>
+    <path d="M 143 700 L 146 700 L 146 818 L 143 818 Z" fill="#6b4f31" opacity="0.6"/>
+    <path d="M 146 700 L 150 700 L 150 818 L 146 818 Z" fill="#2e2013" opacity="0.5"/>
+    <path d="M -70 716 L -70 828 L -56 828 L -56 716 Z" fill="url(#faceLit)"/>
+    <path d="M -70 716 L -64 716 L -64 828 L -70 828 Z" fill="#e8caa0" opacity="0.5"/>
+    <path d="M 56 716 L 56 828 L 70 828 L 70 716 Z" fill="url(#shadowFace)"/>
+    <path d="M -74 698 L 74 698 L 74 716 L -74 716 Z" fill="url(#faceLit)"/>
+    <path d="M -74 698 L 74 698 L 74 706 L -74 706 Z" fill="url(#litTop)"/>
+    <path d="M 20 710 L 74 710 L 74 716 L 20 716 Z" fill="url(#shadowFace)"/>
+    <path d="M -56 828 L -56 772 L 56 772 L 56 828 Z" fill="url(#deepFace)"/>
+    <path d="M -56 772 A 56 56 0 0 1 56 772 L 56 772 Z" fill="url(#deepFace)"/>
+    <path d="M -46 776 A 46 46 0 0 1 46 776 L 46 828 L -46 828 Z" fill="url(#doorGlow)"/>
+    <path d="M -58 822 L 58 822 L 58 826.5 L -58 826.5 Z" fill="#f4e0ba"/>
+    <path d="M -58 826.5 L 58 826.5 L 58 828 L -58 828 Z" fill="#2e2013" opacity="0.5"/>
+    <use href="#lampNiche" transform="translate(-96 814) scale(1.2)"/>
+    <use href="#lampNiche" transform="translate(96 814) scale(1.2)"/>
+    <!-- THE FRIEZE, THE CORNICE AND THE PARAPET: the band of niches, then the lip, then the deck -->
+    <use href="#row16" transform="translate(0 660) scale(1.15)"/>
+    <path d="M -204 578 L 204 578 L 204 616 L -204 616 Z" fill="url(#faceLit)"/>
+    <path d="M -204 578 L 82 578 L 82 616 L -204 616 Z" fill="url(#faceLit)"/>
+    <path d="M 82 578 L 204 578 L 204 616 L 82 616 Z" fill="url(#shadowFace)"/>
+  <path d="M -204 602.4 L 204 602.4 L 204 600 L -204 600 Z" fill="#2e2013" opacity="0.3"/>
+  <path d="M -204 603.8 L 82 603.8 L 82 602.4 L -204 602.4 Z" fill="#e8caa0" opacity="0.3"/>
+    <path d="M -204 578 L -196 578 L -196 616 L -204 616 Z" fill="url(#litTop)"/>
+    <path d="M -204 568 L 204 568 L 204 578 L -204 578 Z" fill="url(#litTop)"/>
+    <path d="M -204 568 L 204 568 L 204 570.5 L -204 570.5 Z" fill="#f4e0ba"/>
+    <path d="M -216 616 L 216 616 L 216 626 L -216 626 Z" fill="url(#litTop)"/>
+    <path d="M -216 616 L 216 616 L 216 618.5 L -216 618.5 Z" fill="#f4e0ba"/>
+    <path d="M -216 626 L 65 626 L 65 632 L -216 632 Z" fill="url(#faceLit)"/>
+    <path d="M 65 626 L 216 626 L 216 632 L 65 632 Z" fill="url(#shadowFace)"/>
+    <path d="M -216 632 L 216 632 L 216 640 L -216 640 Z" fill="url(#shadowFace)"/>
+    <path d="M -216 640 L 216 640 L 202 648 L -202 648 Z" fill="url(#underFace)"/>
+    <path d="M -204 648 L 204 648 L 204 668 L -204 668 Z" fill="url(#castDown)"/>
+    <!-- THE CROWN: stepped caps, the ringed neck, the amalaka disc, the kalasha pot, the spike, the bead -->
+    <path d="M -40 116 L 40 116 L 40 148 L -40 148 Z" fill="url(#faceLit)"/>
+    <path d="M 12 116 L 40 116 L 40 148 L 12 148 Z" fill="url(#shadowFace)"/>
+    <path d="M -40 116 L 40 116 L 40 122.5 L -40 122.5 Z" fill="url(#litTop)"/>
+    <path d="M -40 116 L 40 116 L 40 119 L -40 119 Z" fill="#f4e0ba"/>
+    <path d="M -40 143 L 40 143 L 40 148 L -40 148 Z" fill="url(#underFace)" opacity="0.6"/>
+    <path d="M -28 108 L 28 108 L 28 116 L -28 116 Z" fill="url(#litTop)"/>
+    <path d="M -28 108 L 28 108 L 28 110.5 L -28 110.5 Z" fill="#f4e0ba"/>
+    <path d="M -24 90 L 24 90 L 24 116 L -24 116 Z" fill="url(#faceLit)"/>
+    <path d="M 7 90 L 24 90 L 24 116 L 7 116 Z" fill="url(#shadowFace)"/>
+    <path d="M -24 109 L 24 109 L 24 116 L -24 116 Z" fill="url(#underFace)" opacity="0.5"/>
+    <path d="M -16 83 L 16 83 L 16 90 L -16 90 Z" fill="url(#litTop)"/>
+    <path d="M -16 83 L 16 83 L 16 85.5 L -16 85.5 Z" fill="#f4e0ba"/>
+    <path d="M -13 72 L 13 72 L 13 90 L -13 90 Z" fill="url(#midFace)"/>
+    <path d="M 4 72 L 13 72 L 13 90 L 4 90 Z" fill="url(#shadowFace)"/>
+    <path d="M -15 81 L 15 81 L 15 85 L -15 85 Z" fill="url(#litTop)"/>
+    <path d="M -15 73 L 15 73 L 15 77 L -15 77 Z" fill="url(#litTop)"/>
+    <ellipse cx="0" cy="66" rx="30" ry="11" fill="url(#midFace)"/>
+    <path d="M -30 66 A 30 11 0 0 1 30 66 Z" fill="url(#litTop)"/>
+    <path d="M 4 58.5 L 30 66 L 4 66 Z" fill="url(#shadowFace)"/>
+    <path d="M -11 52 L 11 52 L 11 66 L -11 66 Z" fill="url(#midFace)"/>
+    <path d="M 3 52 L 11 52 L 11 66 L 3 66 Z" fill="url(#shadowFace)"/>
+    <path d="M -11 52 L 11 52 L 11 56 L -11 56 Z" fill="url(#litTop)"/>
+    <path d="M -9 52 L -16 47 L -15 34 L -6 28 L -3 26 L -1 24 L 0 21 L 1 24 L 3 26 L 6 28 L 15 34 L 16 47 L 9 52 Z" fill="url(#midFace)"/>
+    <path d="M -9 52 L -14 48 L -14 38 L -7 31 L -2 25 L -1 27 L -5 32 L -8 40 L -8 45 L -6 52 Z" fill="url(#litTop)"/>
+    <path d="M 0 52 L 8 48 L 10 36 L 5 29 L 1 25 L -1 27 L 3 32 L 6 40 L 5 52 Z" fill="url(#shadowFace)"/>
+    <path d="M -5 21 L 5 21 L 0 7 Z" fill="url(#midFace)"/>
+    <path d="M -5 21 L 0 21 L 0 7 Z" fill="url(#litTop)"/>
+    <circle cx="0" cy="6" r="5" fill="#f4e0ba"/>
+    <!-- THE SEVEN TIERS: a stack of courses, each one closing in a cornice lip that projects past the
+         tier above it - a sunlit top face on the lip, a deep dark under-shadow beneath it, and the whole
+         right-hand face of every tier stepped down into shade -->
+    <path d="M -40 148 L 22 148 L 28.6 208 L -52 208 Z" fill="url(#faceLit)"/>
+    <path d="M 22 148 L 40 148 L 52 208 L 28.6 208 Z" fill="url(#shadowFace)"/>
+    <path d="M -40 148 L -32 148 L -44 208 L -52 208 Z" fill="url(#litTop)"/>
+    <path d="M -44.4 172.4 L 44.4 172.4 L 44.4 170 L -44.4 170 Z" fill="#2e2013" opacity="0.3"/>
+    <path d="M -44.4 173.8 L 24.4 173.8 L 24.4 172.4 L -44.4 172.4 Z" fill="#e8caa0" opacity="0.3"/>
+    <use href="#row4" transform="translate(0 190)"/>
+    <path d="M 22 148 L 40 148 L 52 208 L 28.6 208 Z" fill="#2e2013" opacity="0.6"/>
+    <path d="M -50 136 L 50 136 L 50 141.5 L -50 141.5 Z" fill="url(#litTop)"/>
+    <path d="M -50 136 L 50 136 L 50 138.5 L -50 138.5 Z" fill="#f4e0ba"/>
+    <path d="M -50 141.5 L 22 141.5 L 22 148 L -50 148 Z" fill="url(#faceLit)"/>
+    <path d="M 22 141.5 L 50 141.5 L 50 148 L 22 148 Z" fill="url(#shadowFace)"/>
+    <path d="M -50 148 L 50 148 L 39 156 L -39 156 Z" fill="url(#underFace)"/>
+    <path d="M -40 156 L 40 156 L 40 169 L -40 169 Z" fill="url(#castDown)"/>
+    <use href="#cornerFinial" transform="translate(-47 137) scale(0.62)"/>
+    <use href="#cornerFinial" transform="translate(47 137) scale(0.62)"/>
+    <path d="M -62 208 L 34.1 208 L 40.7 268 L -74 268 Z" fill="url(#faceLit)"/>
+    <path d="M 34.1 208 L 62 208 L 74 268 L 40.7 268 Z" fill="url(#shadowFace)"/>
+    <path d="M -62 208 L -54 208 L -66 268 L -74 268 Z" fill="url(#litTop)"/>
+    <path d="M -66.4 232.4 L 66.4 232.4 L 66.4 230 L -66.4 230 Z" fill="#2e2013" opacity="0.3"/>
+    <path d="M -66.4 233.8 L 36.5 233.8 L 36.5 232.4 L -66.4 232.4 Z" fill="#e8caa0" opacity="0.3"/>
+    <use href="#row6" transform="translate(0 250)"/>
+    <path d="M 34.1 208 L 62 208 L 74 268 L 40.7 268 Z" fill="#2e2013" opacity="0.6"/>
+    <path d="M -72 196 L 72 196 L 72 201.5 L -72 201.5 Z" fill="url(#litTop)"/>
+    <path d="M -72 196 L 72 196 L 72 198.5 L -72 198.5 Z" fill="#f4e0ba"/>
+    <path d="M -72 201.5 L 34.1 201.5 L 34.1 208 L -72 208 Z" fill="url(#faceLit)"/>
+    <path d="M 34.1 201.5 L 72 201.5 L 72 208 L 34.1 208 Z" fill="url(#shadowFace)"/>
+    <path d="M -72 208 L 72 208 L 61 216 L -61 216 Z" fill="url(#underFace)"/>
+    <path d="M -62 216 L 62 216 L 62 229 L -62 229 Z" fill="url(#castDown)"/>
+    <use href="#cornerFinial" transform="translate(-69 197) scale(0.7)"/>
+    <use href="#cornerFinial" transform="translate(69 197) scale(0.7)"/>
+    <path d="M -84 268 L 46.2 268 L 52.8 328 L -96 328 Z" fill="url(#faceLit)"/>
+    <path d="M 46.2 268 L 84 268 L 96 328 L 52.8 328 Z" fill="url(#shadowFace)"/>
+    <path d="M -84 268 L -76 268 L -88 328 L -96 328 Z" fill="url(#litTop)"/>
+    <path d="M -88.4 292.4 L 88.4 292.4 L 88.4 290 L -88.4 290 Z" fill="#2e2013" opacity="0.3"/>
+    <path d="M -88.4 293.8 L 48.6 293.8 L 48.6 292.4 L -88.4 292.4 Z" fill="#e8caa0" opacity="0.3"/>
+    <use href="#row8" transform="translate(0 310)"/>
+    <path d="M 46.2 268 L 84 268 L 96 328 L 52.8 328 Z" fill="#2e2013" opacity="0.6"/>
+    <path d="M -94 256 L 94 256 L 94 261.5 L -94 261.5 Z" fill="url(#litTop)"/>
+    <path d="M -94 256 L 94 256 L 94 258.5 L -94 258.5 Z" fill="#f4e0ba"/>
+    <path d="M -94 261.5 L 46.2 261.5 L 46.2 268 L -94 268 Z" fill="url(#faceLit)"/>
+    <path d="M 46.2 261.5 L 94 261.5 L 94 268 L 46.2 268 Z" fill="url(#shadowFace)"/>
+    <path d="M -94 268 L 94 268 L 83 276 L -83 276 Z" fill="url(#underFace)"/>
+    <path d="M -84 276 L 84 276 L 84 289 L -84 289 Z" fill="url(#castDown)"/>
+    <use href="#cornerFinial" transform="translate(-91 257) scale(0.75)"/>
+    <use href="#cornerFinial" transform="translate(91 257) scale(0.75)"/>
+    <path d="M -106 328 L 58.3 328 L 64.9 388 L -118 388 Z" fill="url(#faceLit)"/>
+    <path d="M 58.3 328 L 106 328 L 118 388 L 64.9 388 Z" fill="url(#shadowFace)"/>
+    <path d="M -106 328 L -98 328 L -110 388 L -118 388 Z" fill="url(#litTop)"/>
+    <path d="M -110.4 352.4 L 110.4 352.4 L 110.4 350 L -110.4 350 Z" fill="#2e2013" opacity="0.3"/>
+    <path d="M -110.4 353.8 L 60.7 353.8 L 60.7 352.4 L -110.4 352.4 Z" fill="#e8caa0" opacity="0.3"/>
+    <use href="#row10" transform="translate(0 370)"/>
+    <path d="M 58.3 328 L 106 328 L 118 388 L 64.9 388 Z" fill="#2e2013" opacity="0.6"/>
+    <path d="M -116 316 L 116 316 L 116 321.5 L -116 321.5 Z" fill="url(#litTop)"/>
+    <path d="M -116 316 L 116 316 L 116 318.5 L -116 318.5 Z" fill="#f4e0ba"/>
+    <path d="M -116 321.5 L 58.3 321.5 L 58.3 328 L -116 328 Z" fill="url(#faceLit)"/>
+    <path d="M 58.3 321.5 L 116 321.5 L 116 328 L 58.3 328 Z" fill="url(#shadowFace)"/>
+    <path d="M -116 328 L 116 328 L 105 336 L -105 336 Z" fill="url(#underFace)"/>
+    <path d="M -106 336 L 106 336 L 106 349 L -106 349 Z" fill="url(#castDown)"/>
+    <use href="#cornerFinial" transform="translate(-113 317) scale(0.8)"/>
+    <use href="#cornerFinial" transform="translate(113 317) scale(0.8)"/>
+    <path d="M -128 388 L 70.4 388 L 77 448 L -140 448 Z" fill="url(#faceLit)"/>
+    <path d="M 70.4 388 L 128 388 L 140 448 L 77 448 Z" fill="url(#shadowFace)"/>
+    <path d="M -128 388 L -120 388 L -132 448 L -140 448 Z" fill="url(#litTop)"/>
+    <path d="M -132.4 412.4 L 132.4 412.4 L 132.4 410 L -132.4 410 Z" fill="#2e2013" opacity="0.3"/>
+    <path d="M -132.4 413.8 L 72.8 413.8 L 72.8 412.4 L -132.4 412.4 Z" fill="#e8caa0" opacity="0.3"/>
+    <use href="#row12" transform="translate(0 430)"/>
+    <path d="M 70.4 388 L 128 388 L 140 448 L 77 448 Z" fill="#2e2013" opacity="0.6"/>
+    <path d="M -138 376 L 138 376 L 138 381.5 L -138 381.5 Z" fill="url(#litTop)"/>
+    <path d="M -138 376 L 138 376 L 138 378.5 L -138 378.5 Z" fill="#f4e0ba"/>
+    <path d="M -138 381.5 L 70.4 381.5 L 70.4 388 L -138 388 Z" fill="url(#faceLit)"/>
+    <path d="M 70.4 381.5 L 138 381.5 L 138 388 L 70.4 388 Z" fill="url(#shadowFace)"/>
+    <path d="M -138 388 L 138 388 L 127 396 L -127 396 Z" fill="url(#underFace)"/>
+    <path d="M -128 396 L 128 396 L 128 409 L -128 409 Z" fill="url(#castDown)"/>
+    <use href="#cornerFinial" transform="translate(-135 377) scale(0.85)"/>
+    <use href="#cornerFinial" transform="translate(135 377) scale(0.85)"/>
+    <path d="M -150 448 L 82.5 448 L 89.1 508 L -162 508 Z" fill="url(#faceLit)"/>
+    <path d="M 82.5 448 L 150 448 L 162 508 L 89.1 508 Z" fill="url(#shadowFace)"/>
+    <path d="M -150 448 L -142 448 L -154 508 L -162 508 Z" fill="url(#litTop)"/>
+    <path d="M -154.4 472.4 L 154.4 472.4 L 154.4 470 L -154.4 470 Z" fill="#2e2013" opacity="0.3"/>
+    <path d="M -154.4 473.8 L 84.9 473.8 L 84.9 472.4 L -154.4 472.4 Z" fill="#e8caa0" opacity="0.3"/>
+    <use href="#row14" transform="translate(0 490)"/>
+    <path d="M 82.5 448 L 150 448 L 162 508 L 89.1 508 Z" fill="#2e2013" opacity="0.6"/>
+    <path d="M -160 436 L 160 436 L 160 441.5 L -160 441.5 Z" fill="url(#litTop)"/>
+    <path d="M -160 436 L 160 436 L 160 438.5 L -160 438.5 Z" fill="#f4e0ba"/>
+    <path d="M -160 441.5 L 82.5 441.5 L 82.5 448 L -160 448 Z" fill="url(#faceLit)"/>
+    <path d="M 82.5 441.5 L 160 441.5 L 160 448 L 82.5 448 Z" fill="url(#shadowFace)"/>
+    <path d="M -160 448 L 160 448 L 149 456 L -149 456 Z" fill="url(#underFace)"/>
+    <path d="M -150 456 L 150 456 L 150 469 L -150 469 Z" fill="url(#castDown)"/>
+    <use href="#cornerFinial" transform="translate(-157 437) scale(0.9)"/>
+    <use href="#cornerFinial" transform="translate(157 437) scale(0.9)"/>
+    <path d="M -172 508 L 94.6 508 L 101.2 568 L -184 568 Z" fill="url(#faceLit)"/>
+    <path d="M 94.6 508 L 172 508 L 184 568 L 101.2 568 Z" fill="url(#shadowFace)"/>
+    <path d="M -172 508 L -164 508 L -176 568 L -184 568 Z" fill="url(#litTop)"/>
+    <path d="M -176.4 532.4 L 176.4 532.4 L 176.4 530 L -176.4 530 Z" fill="#2e2013" opacity="0.3"/>
+    <path d="M -176.4 533.8 L 97 533.8 L 97 532.4 L -176.4 532.4 Z" fill="#e8caa0" opacity="0.3"/>
+    <use href="#row16" transform="translate(0 550)"/>
+    <path d="M 94.6 508 L 172 508 L 184 568 L 101.2 568 Z" fill="#2e2013" opacity="0.6"/>
+    <path d="M -182 496 L 182 496 L 182 501.5 L -182 501.5 Z" fill="url(#litTop)"/>
+    <path d="M -182 496 L 182 496 L 182 498.5 L -182 498.5 Z" fill="#f4e0ba"/>
+    <path d="M -182 501.5 L 94.6 501.5 L 94.6 508 L -182 508 Z" fill="url(#faceLit)"/>
+    <path d="M 94.6 501.5 L 182 501.5 L 182 508 L 94.6 508 Z" fill="url(#shadowFace)"/>
+    <path d="M -182 508 L 182 508 L 171 516 L -171 516 Z" fill="url(#underFace)"/>
+    <path d="M -172 516 L 172 516 L 172 529 L -172 529 Z" fill="url(#castDown)"/>
+    <use href="#cornerFinial" transform="translate(-179 497) scale(0.95)"/>
+    <use href="#cornerFinial" transform="translate(179 497) scale(0.95)"/>
+    </g>
+  <path d="M 548 872 L 1052 872 L 1052 880 L 548 880 Z M 548 880 L 1052 880 L 1052 890 L 548 890 Z M 548 890 L 1052 890 L 1052 900 L 548 900 Z M 566 848 L 1034 848 L 1034 856 L 566 856 Z M 566 856 L 1034 856 L 1034 866 L 566 866 Z M 566 866 L 1034 866 L 1034 872 L 566 872 Z M 584 828 L 1016 828 L 1016 836 L 584 836 Z M 584 836 L 1016 836 L 1016 842 L 584 842 Z M 584 842 L 1016 842 L 1016 848 L 584 848 Z M 602 640 L 998 640 L 998 828 L 602 828 Z M 596 578 L 1004 578 L 1004 616 L 596 616 Z M 596 568 L 1004 568 L 1004 578 L 596 578 Z M 584 616 L 1016 616 L 1016 626 L 584 626 Z M 584 626 L 1016 626 L 1016 632 L 584 632 Z M 584 632 L 1016 632 L 1016 640 L 584 640 Z M 760 116 L 840 116 L 840 148 L 760 148 Z M 772 108 L 828 108 L 828 116 L 772 116 Z M 776 90 L 824 90 L 824 116 L 776 116 Z M 784 83 L 816 83 L 816 90 L 784 90 Z M 787 72 L 813 72 L 813 90 L 787 90 Z M 770 66 A 30 11 0 1 1 830 66 A 30 11 0 1 1 770 66 Z M 789 52 L 811 52 L 811 66 L 789 66 Z M 760 148 L 840 148 L 852 208 L 748 208 Z M 750 136 L 850 136 L 850 141.5 L 750 141.5 Z M 750 141.5 L 850 141.5 L 850 148 L 750 148 Z M 738 208 L 862 208 L 874 268 L 726 268 Z M 728 196 L 872 196 L 872 201.5 L 728 201.5 Z M 728 201.5 L 872 201.5 L 872 208 L 728 208 Z M 716 268 L 884 268 L 896 328 L 704 328 Z M 706 256 L 894 256 L 894 261.5 L 706 261.5 Z M 706 261.5 L 894 261.5 L 894 268 L 706 268 Z M 694 328 L 906 328 L 918 388 L 682 388 Z M 684 316 L 916 316 L 916 321.5 L 684 321.5 Z M 684 321.5 L 916 321.5 L 916 328 L 684 328 Z M 672 388 L 928 388 L 940 448 L 660 448 Z M 662 376 L 938 376 L 938 381.5 L 662 381.5 Z M 662 381.5 L 938 381.5 L 938 388 L 662 388 Z M 650 448 L 950 448 L 962 508 L 638 508 Z M 640 436 L 960 436 L 960 441.5 L 640 441.5 Z M 640 441.5 L 960 441.5 L 960 448 L 640 448 Z M 628 508 L 972 508 L 984 568 L 616 568 Z M 618 496 L 982 496 L 982 501.5 L 618 501.5 Z M 618 501.5 L 982 501.5 L 982 508 L 618 508 Z" fill="url(#sunShade)"/>
+  <!-- THE GLOW: the doorway and the lamps stay lit through the shade, and the light pools out onto
+       the stone in front of the door -->
+  <ellipse cx="800" cy="792" rx="190" ry="150" fill="url(#doorHalo)"/>
+  <ellipse cx="800" cy="852" rx="220" ry="36" fill="url(#groundPool)"/>
+  <use href="#bigDoor" transform="translate(800 0)"/>
+  <path d="M -58 822 L 58 822 L 58 826.5 L -58 826.5 Z" transform="translate(800 0)" fill="#f4e0ba"/>
+  <use href="#lampNiche" transform="translate(704 814) scale(1.2)"/>
+  <use href="#lampNiche" transform="translate(896 814) scale(1.2)"/>
+  <!-- THE GLOW ON THE WALL: the lamp niches are lit lamps, so they are struck again over the shade -->
+  <use href="#lampRow" transform="translate(280 880)"/>
+  <use href="#lampRow" transform="translate(1320 880)"/>
+</svg>
