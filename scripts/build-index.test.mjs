@@ -100,3 +100,18 @@ test('symbolic link in a game rejected', () => {
   symlinkSync('..', join(dir, 'linky', 'up'));
   assert.throws(() => buildIndex(dir), /symbolic link/);
 });
+
+test('meta.json with a BOM is read', () => {
+  const dir = gamesDir({ 'bom': { files: { 'meta.json': '\uFEFF' + JSON.stringify(meta('bom')) } } });
+  assert.equal(buildIndex(dir)[0].handle, 'bom');
+});
+
+test('key-shaped string in game code rejected', () => {
+  const dir = gamesDir({ 'leaky': { meta: meta('leaky'), files: { 'main.js': 'const k = "vck_' + 'a'.repeat(30) + '";' } } });
+  assert.throws(() => buildIndex(dir), /shaped like an API key/);
+});
+
+test('credits with ./ or backslashes match', () => {
+  const dir = gamesDir({ 'paths': { meta: meta('paths', { ai_assets: ['./a.png', 'img\\b.png'] }), files: { 'a.png': 'x', 'img/b.png': 'x' } } });
+  assert.equal(buildIndex(dir).length, 1);
+});

@@ -8,6 +8,9 @@ const HANDLE = /^[a-z0-9-]{2,30}$/;
 // Files a game may contain without crediting them in meta.json.
 const FREE_NAMES = new Set(['index.html', 'meta.json', 'DEVLOG.md']);
 const FREE_EXTS = new Set(['.js', '.mjs', '.css']);
+const KEY = /vck_[A-Za-z0-9_-]{20,}|sk-ant-[A-Za-z0-9_-]{20,}/;
+// Credits written as ./a.png, /a.png, or a\\b.png still mean a.png, a/b.png.
+const norm = (p) => String(p).replace(/\\/g, '/').replace(/^\.?\//, '');
 
 function walk(dir, root = dir) {
   return readdirSync(dir).flatMap((name) => {
@@ -27,9 +30,10 @@ function checkGame(gamesDir, folder) {
   if (!existsSync(join(dir, 'index.html'))) fail('missing index.html');
 
   let meta;
-  try { meta = JSON.parse(readFileSync(join(dir, 'meta.json'), 'utf8')); }
+  try { meta = JSON.parse(readFileSync(join(dir, 'meta.json'), 'utf8').replace(/^\uFEFF/, '')); }
   catch (e) { fail(`meta.json is not valid JSON (${e.message})`); }
 
+  if (!meta || typeof meta !== 'object' || Array.isArray(meta)) fail('meta.json must be an object like {"title": ...}');
   if (!HANDLE.test(meta.handle ?? '')) fail(`handle "${meta.handle}" must be 2-30 lowercase letters, numbers, or dashes`);
   if (meta.handle !== folder) fail(`folder name must match meta.json handle "${meta.handle}"`);
   for (const key of ['title', 'description']) {
@@ -44,8 +48,9 @@ function checkGame(gamesDir, folder) {
     }
   }
 
-  const credited = new Set([...assets.map((a) => a.file), ...aiAssets]);
+  const credited = new Set([...assets.map((a) => norm(a.file)), ...aiAssets.map((a) => norm(a?.file ?? a))]);
   for (const f of walk(dir)) {
+    if (KEY.test(readFileSync(join(dir, f), 'latin1'))) fail(`${f} contains something shaped like an API key; remove it and ship again`);
     const name = f.split('/').pop();
     if (FREE_NAMES.has(name) || FREE_EXTS.has(extname(f)) || credited.has(f)) continue;
     fail(`${f} is not credited; add it to meta.json assets (with source and license) or ai_assets`);
@@ -76,7 +81,7 @@ if (process.argv[2] === '--pr-scope') {
   const git = (...a) => execFileSync('git', a, { encoding: 'utf8' }).split('\n').filter(Boolean);
   const base = process.argv[3];
   try {
-    const changed = git('diff', '--name-only', '--no-renames', `${base}...HEAD`);
+    const changed = git('-c', 'core.quotePath=false', 'diff', '--name-only', '--no-renames', `${base}...HEAD`);
     const existing = git('ls-tree', '--name-only', `${base}`, 'games/').map((p) => p.replace(/^games\//, ''));
     console.log(`PR scope ok: games/${checkPrScope(changed, existing)}/`);
   } catch (e) {
