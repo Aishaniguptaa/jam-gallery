@@ -1,0 +1,11 @@
+{
+  "title": "Base Defender",
+  "handle": "defender",
+  "description": "A top-down wave defense game on a desert oil rig at dusk. Hold off drones, red spirals and bosses until wave 20.",
+  "assets": [],
+  "ai_assets": [
+    "assets/base.glb",
+    "assets/turret.glb",
+    "assets/drone.glb"
+  ]
+}

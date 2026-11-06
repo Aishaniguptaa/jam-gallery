@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Base Defender</title>
+  <style>
+    html, body { margin: 0; height: 100%; overflow: hidden; background: #111; }
+    #file-warning { position: fixed; inset: 0; display: grid; place-items: center; padding: 2rem;
+      color: #fff; background: #111; font: 18px/1.5 system-ui, sans-serif; text-align: center; }
+    #file-warning[hidden] { display: none; }
+    code { background: #333; padding: 0.1em 0.4em; border-radius: 4px; }
+    canvas { display: block; }
+
+    /* --- Game HUD (M1). ui.js updates these elements. --- */
+    #hud { position: fixed; top: 14px; left: 14px; right: 14px; display: flex; flex-wrap: wrap;
+      align-items: center; gap: 10px 18px; color: #f2e9dc; pointer-events: none;
+      font: 600 15px/1.2 system-ui, sans-serif; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); }
+    #wave-value { color: #ffd98a; font-size: 20px; }
+    #hp-wrap { width: 220px; height: 14px; border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 3px; background: rgba(0, 0, 0, 0.55); overflow: hidden; }
+    #hp-bar { height: 100%; width: 100%; background: linear-gradient(90deg, #ff7a4d, #ffd98a); }
+    #hp-label { font: 600 13px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; opacity: 0.9; }
+
+    /* Big "Wave N" in the middle of the screen, during the pause between waves. */
+    #wave-announce { position: fixed; inset: 0; display: grid; place-content: center;
+      color: #ffd98a; font: 700 56px/1 system-ui, sans-serif; letter-spacing: 0.14em;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.85); pointer-events: none; }
+    #wave-announce[hidden] { display: none; }
+
+    /* Red blink when the base is hit. */
+    #damage-flash { position: fixed; inset: 0; background: #ff2b1f; opacity: 0; pointer-events: none; }
+    #damage-flash.flash { animation: flash-red 0.4s ease-out; }
+    @keyframes flash-red { from { opacity: 0.5; } to { opacity: 0; } }
+
+    /* Game over screen. */
+    #game-over { position: fixed; inset: 0; display: grid; place-content: center; gap: 6px;
+      text-align: center; background: rgba(8, 7, 12, 0.78); color: #f6efe4; pointer-events: none;
+      font: 16px/1.5 system-ui, sans-serif; }
+    #game-over[hidden] { display: none; }
+    #game-over h1 { margin: 0 0 6px; font-size: 40px; letter-spacing: 0.08em; color: #ff8a5c; }
+    #game-over p { margin: 0; }
+    #game-over kbd { padding: 0 6px; border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 4px; background: rgba(255, 255, 255, 0.12); font: inherit; }
+
+    /* "Loading..." while the three GLB models download. main.js hides it when the run starts. */
+    #loading { position: fixed; inset: 0; display: grid; place-items: center; background: #1b0e08;
+      color: #ffd98a; font: 600 20px/1.4 system-ui, sans-serif; letter-spacing: 0.12em;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8); }
+    #loading[hidden] { display: none; }
+
+    /* ?fps readout, top-right corner. Hidden unless the URL asks for it. */
+    #fps { position: fixed; top: 14px; right: 14px; color: #ffd98a; pointer-events: none;
+      font: 600 13px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); }
+    #fps[hidden] { display: none; }
+
+    /* Win screen: shown when wave 20 is cleared. */
+    #win-screen { position: fixed; inset: 0; display: grid; place-content: center; gap: 6px;
+      text-align: center; background: rgba(20, 12, 6, 0.78); color: #f6efe4; pointer-events: none;
+      font: 16px/1.5 system-ui, sans-serif; }
+    #win-screen[hidden] { display: none; }
+    #win-screen h1 { margin: 0 0 6px; font-size: 40px; letter-spacing: 0.08em; color: #ffd98a; }
+    #win-screen p { margin: 0; }
+    #win-screen kbd { padding: 0 6px; border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 4px; background: rgba(255, 255, 255, 0.12); font: inherit; }
+  </style>
+  <!-- three.js comes from a CDN, pinned to one version. No install needed. -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- Shown until the three GLB models are in; main.js hides it as the run starts. -->
+  <div id="loading">Loading...</div>
+  <!-- Frame-rate readout; main.js only unhides it when the URL carries ?fps. -->
+  <div id="fps" hidden>0 FPS</div>
+  <!-- Last in the page, and after #loading, so the "needs a server" note paints over it on file:// -->
+  <div id="file-warning" hidden>
+    <p>This game needs a local server.<br>
+      In this folder run <code>python3 -m http.server 8000 --bind 127.0.0.1</code><br>
+      (Windows: <code>py -m http.server 8000 --bind 127.0.0.1</code>, or <code>python</code> instead of <code>py</code>)<br>
+      then open <a href="http://localhost:8000" style="color:#8cf">http://localhost:8000</a></p>
+  </div>
+  <script>
+    // Browsers block game code opened straight from a file. Say so instead of showing a blank page.
+    if (location.protocol === 'file:') document.getElementById('file-warning').hidden = false;
+  </script>
+  <!-- HUD: wave counter, base health, wave announcement, base-damage flash, game over, win. main.js drives these through ui.js. -->
+  <div id="hud">
+    <div>Wave <span id="wave-value">1</span></div>
+    <div id="hp-wrap"><div id="hp-bar"></div></div>
+    <div id="hp-label">HP 100 / 100</div>
+  </div>
+  <div id="wave-announce" hidden>Wave 1</div>
+  <div id="damage-flash"></div>
+  <div id="game-over" hidden>
+    <h1>BASE DESTROYED</h1>
+    <p>You reached <strong>wave <span id="go-wave">1</span></strong>.</p>
+    <p>Press <kbd>R</kbd> to restart.</p>
+  </div>
+  <div id="win-screen" hidden>
+    <h1>YOU HELD THE RIG</h1>
+    <p>You held the rig through <strong>wave <span id="win-wave">20</span></strong>.</p>
+    <p>Time: <strong><span id="win-time">0.0s</span></strong></p>
+    <p>Press <kbd>R</kbd> to restart.</p>
+  </div>
+
+  <!-- If three.js (from the internet) or main.js fails to load, say so instead of showing a blank page. -->
+  <script type="module" src="./main.js" onerror="if(location.protocol!=='file:'){var w=document.getElementById('file-warning');w.textContent='The game could not load (check your internet), then refresh the page.';w.hidden=false}"></script>
+</body>
+</html>
