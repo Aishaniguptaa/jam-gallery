@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, symlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { buildIndex } from './build-index.mjs';
@@ -93,4 +93,25 @@ test('pr touching files outside games rejected', () => {
 
 test('pr touching two games rejected', () => {
   assert.throws(() => checkPrScope(['games/aa/index.html', 'games/bb/index.html'], []), /one game/);
+});
+
+test('symbolic link in a game rejected', () => {
+  const dir = gamesDir({ 'linky': { meta: meta('linky') } });
+  symlinkSync('..', join(dir, 'linky', 'up'));
+  assert.throws(() => buildIndex(dir), /symbolic link/);
+});
+
+test('meta.json with a BOM is read', () => {
+  const dir = gamesDir({ 'bom': { files: { 'meta.json': '\uFEFF' + JSON.stringify(meta('bom')) } } });
+  assert.equal(buildIndex(dir)[0].handle, 'bom');
+});
+
+test('key-shaped string in game code rejected', () => {
+  const dir = gamesDir({ 'leaky': { meta: meta('leaky'), files: { 'main.js': 'const k = "vck_' + 'a'.repeat(30) + '";' } } });
+  assert.throws(() => buildIndex(dir), /shaped like an API key/);
+});
+
+test('credits with ./ or backslashes match', () => {
+  const dir = gamesDir({ 'paths': { meta: meta('paths', { ai_assets: ['./a.png', 'img\\b.png'] }), files: { 'a.png': 'x', 'img/b.png': 'x' } } });
+  assert.equal(buildIndex(dir).length, 1);
 });
